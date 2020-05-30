@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <Import Project="..\..\common.props" />
+  
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>..\DG.Blog.HttpApi.Hosting\DG.Blog.Application.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DG.Blog.Domain.Shared\DG.Blog.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
