@@ -96,7 +96,6 @@ namespace DG.Blog.HttpApi.Hosting
 
             // 跨域
             app.UseCors();
-
             // 异常处理中间件
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 

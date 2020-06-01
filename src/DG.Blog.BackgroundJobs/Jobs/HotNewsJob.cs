@@ -417,7 +417,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 Type = ScreenshotType.Png
             });
 
-            #endregion
+            #endregion Puppeteer访问指定URL,保存为图片
 
             // 发送Email
             var builder = new BodyBuilder();
@@ -428,12 +428,13 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
             builder.HtmlBody = "本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), image.ContentId);
 
-            var message = new MimeMessage
-            {
-                Subject = "【定时任务】每日热点数据抓取任务推送",
-                Body = builder.ToMessageBody()
-            };
-            await EmailHelper.SendAsync(message);
+            //var message = new MimeMessage
+            //{
+            //    Subject = "【定时任务】每日热点数据抓取任务推送",
+            //    Body = builder.ToMessageBody()
+            //};
+            //await EmailHelper.SendAsync(message);
+            LoggerHelper.WriteToFile("本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), image.ContentId));
         }
     }
 }
