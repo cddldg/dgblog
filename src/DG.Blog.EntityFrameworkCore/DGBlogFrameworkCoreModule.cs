@@ -35,15 +35,19 @@ namespace DG.Blog.EntityFrameworkCore
                     case "MySQL":
                         options.UseMySQL();
                         break;
+
                     case "SqlServer":
                         options.UseSqlServer();
                         break;
+
                     case "PostgreSql":
-                        options.UsePostgreSql();
+                        options.UseNpgsql();
                         break;
+
                     case "Sqlite":
                         options.UseSqlite();
                         break;
+
                     default:
                         options.UseMySQL();
                         break;
