@@ -16,7 +16,7 @@ namespace DG.Blog.EntityFrameworkCore
         public static void Configure(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
-
+            //builder.HasDefaultSchema(DGBlogConsts.DbTablePrefix + "Blog");
             builder.Entity<Post>(b =>
             {
                 b.ToTable(DGBlogConsts.DbTablePrefix + DbTableName.Posts);
@@ -24,10 +24,10 @@ namespace DG.Blog.EntityFrameworkCore
                 b.Property(x => x.Title).HasMaxLength(200).IsRequired();
                 b.Property(x => x.Author).HasMaxLength(10);
                 b.Property(x => x.Url).HasMaxLength(100).IsRequired();
-                b.Property(x => x.Html).HasColumnType("longtext").IsRequired();
-                b.Property(x => x.Markdown).HasColumnType("longtext").IsRequired();
-                b.Property(x => x.CategoryId).HasColumnType("int");
-                b.Property(x => x.CreationTime).HasColumnType("datetime");
+                //b.Property(x => x.Html).HasColumnType("longtext").IsRequired();
+                //b.Property(x => x.Markdown).HasColumnType("longtext").IsRequired();
+                //b.Property(x => x.CategoryId).HasColumnType("int");
+                //b.Property(x => x.CreationTime).HasColumnType("datetime");
             });
 
             builder.Entity<Category>(b =>
@@ -50,8 +50,8 @@ namespace DG.Blog.EntityFrameworkCore
             {
                 b.ToTable(DGBlogConsts.DbTablePrefix + DbTableName.PostTags);
                 b.HasKey(x => x.Id);
-                b.Property(x => x.PostId).HasColumnType("int").IsRequired();
-                b.Property(x => x.TagId).HasColumnType("int").IsRequired();
+                //b.Property(x => x.PostId).HasColumnType("int").IsRequired();
+                // b.Property(x => x.TagId).HasColumnType("int").IsRequired();
             });
 
             builder.Entity<FriendLink>(b =>
@@ -71,7 +71,7 @@ namespace DG.Blog.EntityFrameworkCore
                 b.Property(x => x.Type).HasMaxLength(20).IsRequired();
                 b.Property(x => x.Url).HasMaxLength(100).IsRequired();
                 b.Property(x => x.Ip).HasMaxLength(50).IsRequired();
-                b.Property(x => x.CreateTime).HasColumnType("datetime");
+                //b.Property(x => x.CreateTime).HasColumnType("datetime");
             });
 
             builder.Entity<Wallpaper>(b =>
@@ -81,8 +81,8 @@ namespace DG.Blog.EntityFrameworkCore
                 b.Property(x => x.Id).ValueGeneratedOnAdd();
                 b.Property(x => x.Url).HasMaxLength(200).IsRequired();
                 b.Property(x => x.Title).HasMaxLength(100).IsRequired();
-                b.Property(x => x.Type).HasColumnType("int").IsRequired();
-                b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
+                //b.Property(x => x.Type).HasColumnType("int").IsRequired();
+                //b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
             });
 
             builder.Entity<HotNews>(b =>
@@ -92,8 +92,8 @@ namespace DG.Blog.EntityFrameworkCore
                 b.Property(x => x.Id).ValueGeneratedOnAdd();
                 b.Property(x => x.Title).HasMaxLength(200).IsRequired();
                 b.Property(x => x.Url).HasMaxLength(250).IsRequired();
-                b.Property(x => x.SourceId).HasColumnType("int").IsRequired();
-                b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
+                //b.Property(x => x.SourceId).HasColumnType("int").IsRequired();
+                //b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
             });
 
             builder.Entity<ChickenSoup>(b =>
@@ -110,20 +110,20 @@ namespace DG.Blog.EntityFrameworkCore
                 b.HasKey(x => x.Id);
                 b.Property(x => x.Name).HasMaxLength(100).IsRequired();
                 b.Property(x => x.ImgUrl).HasMaxLength(200).IsRequired();
-                b.Property(x => x.IsPublic).HasColumnType("bool").IsRequired();
+                //b.Property(x => x.IsPublic).HasColumnType("bool").IsRequired();
                 b.Property(x => x.Password).HasMaxLength(20).IsRequired();
-                b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
+                //b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
             });
 
             builder.Entity<Image>(b =>
             {
                 b.ToTable(DGBlogConsts.DbTablePrefix + DbTableName.Images);
                 b.HasKey(x => x.Id);
-                b.Property(x => x.AlbumId).HasColumnType("char(36)").IsRequired();
+                //b.Property(x => x.AlbumId).HasColumnType("char(36)").IsRequired();
                 b.Property(x => x.ImgUrl).HasMaxLength(200).IsRequired();
-                b.Property(x => x.Width).HasColumnType("int").IsRequired();
-                b.Property(x => x.Height).HasColumnType("int").IsRequired();
-                b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
+                //b.Property(x => x.Width).HasColumnType("int").IsRequired();
+                //b.Property(x => x.Height).HasColumnType("int").IsRequired();
+                //b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
             });
         }
     }

@@ -21,7 +21,7 @@ namespace DG.Blog.ToolKits.Helper
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
-        public static void WriteToFile(string message)
+        public static void Write(string message)
         {
             Log.Info(message);
         }
@@ -31,7 +31,7 @@ namespace DG.Blog.ToolKits.Helper
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ex"></param>
-        public static void WriteToFile(string message, Exception ex)
+        public static void Write(Exception ex, string message)
         {
             if (string.IsNullOrEmpty(message))
                 message = ex.Message;

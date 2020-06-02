@@ -1,6 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.Dashboard.BasicAuthorization;
-using Hangfire.MySql.Core;
+using Hangfire.PostgreSql;
 using DG.Blog.Domain.Configurations;
 using DG.Blog.Domain.Shared;
 using Volo.Abp;
@@ -17,10 +17,10 @@ namespace DG.Blog.BackgroundJobs
             context.Services.AddHangfire(config =>
             {
                 config.UseStorage(
-                    new MySqlStorage(AppSettings.ConnectionStrings,
-                    new MySqlStorageOptions
+                    new PostgreSqlStorage(AppSettings.ConnectionStrings,
+                    new PostgreSqlStorageOptions
                     {
-                        TablePrefix = DGBlogConsts.DbTablePrefix + "hangfire"
+                        SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
                     }));
             });
         }

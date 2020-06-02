@@ -12,7 +12,7 @@ namespace DG.Blog.HttpApi.Hosting
         {
             try
             {
-                LoggerHelper.WriteToFile("Starting web host.");
+                LoggerHelper.Write("Starting web host.");
                 await Host.CreateDefaultBuilder(args)
                       .ConfigureWebHostDefaults(builder =>
                       {
@@ -22,7 +22,7 @@ namespace DG.Blog.HttpApi.Hosting
             }
             catch (Exception ex)
             {
-                LoggerHelper.WriteToFile("Host terminated unexpectedly!", ex);
+                LoggerHelper.Write(ex, "Host terminated unexpectedly!");
             }
         }
     }

@@ -32,6 +32,7 @@ namespace DG.Blog.HttpApi.Hosting.Middleware
             }
             catch (Exception ex)
             {
+                ToolKits.Helper.LoggerHelper.Write(ex, "Middleware");
                 await ExceptionHandlerAsync(context, ex.Message);
             }
             finally

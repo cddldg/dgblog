@@ -7,7 +7,6 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.EntityFrameworkCore
     {
         public DGBlogMigrationsDbContext(DbContextOptions<DGBlogMigrationsDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

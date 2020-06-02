@@ -393,40 +393,39 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
             #region Puppeteer访问指定URL,保存为图片
 
-            var path = Path.Combine(Path.GetTempPath(), "DG.png");
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+            //var path = Path.Combine(Path.GetTempPath(), "DG.png");
+            //await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
 
-            using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true,
-                Args = new string[] { "--no-sandbox" }
-            });
+            //using var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            //{
+            //    Headless = true,
+            //    Args = new string[] { "--no-sandbox" }
+            //});
 
-            using var page = await browser.NewPageAsync();
-            await page.SetViewportAsync(new ViewPortOptions
-            {
-                Width = 1920,
-                Height = 1080
-            });
-
-            var url = "https://DG.com/wallpaper";
-            await page.GoToAsync(url, WaitUntilNavigation.Networkidle0);
-            await page.ScreenshotAsync(path, new ScreenshotOptions
-            {
-                FullPage = true,
-                Type = ScreenshotType.Png
-            });
+            //using var page = await browser.NewPageAsync();
+            //await page.SetViewportAsync(new ViewPortOptions
+            //{
+            //    Width = 1920,
+            //    Height = 1080
+            //});
+            //var url = "https://meowv.com/wallpaper";
+            //await page.GoToAsync(url, WaitUntilNavigation.Networkidle0);
+            //await page.ScreenshotAsync(path, new ScreenshotOptions
+            //{
+            //    FullPage = true,
+            //    Type = ScreenshotType.Png
+            //});
 
             #endregion Puppeteer访问指定URL,保存为图片
 
             // 发送Email
-            var builder = new BodyBuilder();
+            //var builder = new BodyBuilder();
 
-            var image = builder.LinkedResources.Add(path);
+            //var image = builder.LinkedResources.Add(path);
 
-            image.ContentId = MimeUtils.GenerateMessageId();
+            //image.ContentId = MimeUtils.GenerateMessageId();
 
-            builder.HtmlBody = "本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), image.ContentId);
+            //builder.HtmlBody = "本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), image.ContentId);
 
             //var message = new MimeMessage
             //{
@@ -434,7 +433,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
             //    Body = builder.ToMessageBody()
             //};
             //await EmailHelper.SendAsync(message);
-            LoggerHelper.WriteToFile("本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), image.ContentId));
+            LoggerHelper.Write("本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), 0));
         }
     }
 }

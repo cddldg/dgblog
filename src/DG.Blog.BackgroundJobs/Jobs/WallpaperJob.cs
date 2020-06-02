@@ -108,7 +108,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
             //    }.ToMessageBody()
             //};
             //await EmailHelper.SendAsync(message);
-            LoggerHelper.WriteToFile($"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            LoggerHelper.Write($"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
         }
     }
 }

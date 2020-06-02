@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
 {
@@ -15,9 +15,9 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     ImgUrl = table.Column<string>(maxLength: 200, nullable: false),
-                    IsPublic = table.Column<bool>(type: "bool", nullable: false),
+                    IsPublic = table.Column<bool>(nullable: false),
                     Password = table.Column<string>(maxLength: 20, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    CreateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,7 +29,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CategoryName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },
@@ -55,7 +55,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(maxLength: 20, nullable: false),
                     LinkUrl = table.Column<string>(maxLength: 100, nullable: false)
                 },
@@ -71,8 +71,8 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Url = table.Column<string>(maxLength: 250, nullable: false),
-                    SourceId = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    SourceId = table.Column<int>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,11 +84,11 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    AlbumId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    AlbumId = table.Column<Guid>(nullable: false),
                     ImgUrl = table.Column<string>(maxLength: 200, nullable: false),
-                    Width = table.Column<int>(type: "int", nullable: false),
-                    Height = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Width = table.Column<int>(nullable: false),
+                    Height = table.Column<int>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,9 +100,9 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PostId = table.Column<int>(nullable: false),
+                    TagId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,14 +114,14 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Author = table.Column<string>(maxLength: 10, nullable: true),
                     Url = table.Column<string>(maxLength: 100, nullable: false),
-                    Html = table.Column<string>(type: "longtext", nullable: false),
-                    Markdown = table.Column<string>(type: "longtext", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Html = table.Column<string>(nullable: true),
+                    Markdown = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,7 +137,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     Type = table.Column<string>(maxLength: 20, nullable: false),
                     Url = table.Column<string>(maxLength: 100, nullable: false),
                     Ip = table.Column<string>(maxLength: 50, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    CreateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,7 +149,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TagName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },
@@ -165,8 +165,8 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Url = table.Column<string>(maxLength: 200, nullable: false),
                     Title = table.Column<string>(maxLength: 100, nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Type = table.Column<int>(nullable: false),
+                    CreateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
