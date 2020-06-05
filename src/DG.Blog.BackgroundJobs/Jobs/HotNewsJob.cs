@@ -41,6 +41,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
         {
             try
             {
+                LoggerHelper.Write($"每日热点数据抓取 {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
                 var hotnewsUrls = new List<HotNewsJobItem<string>>
             {
                 new HotNewsJobItem<string> { Result = "https://www.cnblogs.com", Source = HotNewsEnum.cnblogs },
@@ -75,6 +76,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         if (item.Source == HotNewsEnum.juejin)
                         {
                             using var client = _httpClient.CreateClient();
+
                             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.14 Safari/537.36 Edg/83.0.478.13");
                             client.DefaultRequestHeaders.Add("X-Agent", "Juejin/Web");
                             var data = "{\"extensions\":{\"query\":{ \"id\":\"21207e9ddb1de777adeaca7a2fb38030\"}},\"operationName\":\"\",\"query\":\"\",\"variables\":{ \"first\":20,\"after\":\"\",\"order\":\"THREE_DAYS_HOTTEST\"}}";
@@ -395,11 +397,11 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
                 _ = SendingAsync(hotNews.Count());
 
-                LoggerHelper.Write("本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), 0));
+                LoggerHelper.Write("每日热点数据抓取 本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), 0));
             }
             catch (Exception ex)
             {
-                LoggerHelper.Write(ex, $"异常：HotNewsJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
+                LoggerHelper.Write(ex, $"每日热点数据抓取 异常：HotNewsJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
             }
         }
 

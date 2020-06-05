@@ -32,6 +32,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
         {
             try
             {
+                LoggerHelper.Write($"壁纸数据抓取 {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
                 var wallpaperUrls = new List<WallpaperJobItem<string>>
             {
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_1_1.html", Type = WallpaperEnum.Beauty },
@@ -110,11 +111,11 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 //    }.ToMessageBody()
                 //};
                 //await EmailHelper.SendAsync(message);
-                LoggerHelper.Write($"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                LoggerHelper.Write($"壁纸数据抓取 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             }
             catch (Exception ex)
             {
-                LoggerHelper.Write(ex, $"异常：WallpaperJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
+                LoggerHelper.Write(ex, $"壁纸数据抓取 异常：WallpaperJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
             }
         }
     }

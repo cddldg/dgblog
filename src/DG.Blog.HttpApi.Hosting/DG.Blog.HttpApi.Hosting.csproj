@@ -10,6 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DG.Blog.Application.Contracts.xml" />
+    <None Remove="DG.Blog.Domain.xml" />
+    <None Remove="DG.Blog.HttpApi.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Volo.Abp.Autofac" Version="2.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
 
@@ -18,18 +31,6 @@
     <ProjectReference Include="..\DG.Blog.HttpApi\DG.Blog.HttpApi.csproj" />
     <ProjectReference Include="..\DG.Blog.EntityFrameworkCore\DG.Blog.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\DG.Blog.Swagger\DG.Blog.Swagger.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="DG.Blog.Application.Contracts.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DG.Blog.Domain.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="DG.Blog.HttpApi.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ProjectExtensions>
