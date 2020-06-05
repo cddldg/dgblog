@@ -30,7 +30,9 @@ namespace DG.Blog.BackgroundJobs.Jobs
         /// <returns></returns>
         public async Task RunAsync()
         {
-            var wallpaperUrls = new List<WallpaperJobItem<string>>
+            try
+            {
+                var wallpaperUrls = new List<WallpaperJobItem<string>>
             {
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_1_1.html", Type = WallpaperEnum.Beauty },
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_58_1.html", Type = WallpaperEnum.Sportsman },
@@ -54,61 +56,66 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_7_1.html", Type = WallpaperEnum.Other }
             };
 
-            var web = new HtmlWeb();
-            var list_task = new List<Task<WallpaperJobItem<HtmlDocument>>>();
+                var web = new HtmlWeb();
+                var list_task = new List<Task<WallpaperJobItem<HtmlDocument>>>();
 
-            wallpaperUrls.ForEach(item =>
-            {
-                var task = Task.Run(async () =>
+                wallpaperUrls.ForEach(item =>
                 {
-                    var htmlDocument = await web.LoadFromWebAsync(item.Result);
-                    return new WallpaperJobItem<HtmlDocument>
+                    var task = Task.Run(async () =>
                     {
-                        Result = htmlDocument,
-                        Type = item.Type
-                    };
-                });
-                list_task.Add(task);
-            });
-            Task.WaitAll(list_task.ToArray());
-
-            var wallpapers = new List<Wallpaper>();
-
-            foreach (var list in list_task)
-            {
-                var item = await list;
-
-                var imgs = item.Result.DocumentNode.SelectNodes("//article[@id='wper']/div[@class='jbox']/div[@class='kbox']/div/a/img[1]").ToList();
-                imgs.ForEach(x =>
-                {
-                    wallpapers.Add(new Wallpaper
-                    {
-                        Url = x.GetAttributeValue("data-big", ""),
-                        Title = x.GetAttributeValue("title", ""),
-                        Type = (int)item.Type,
-                        CreateTime = x.Attributes["data-big"].Value.Split("/").Last().Split("_").First().TryToDateTime()
+                        var htmlDocument = await web.LoadFromWebAsync(item.Result);
+                        return new WallpaperJobItem<HtmlDocument>
+                        {
+                            Result = htmlDocument,
+                            Type = item.Type
+                        };
                     });
+                    list_task.Add(task);
                 });
-            }
+                Task.WaitAll(list_task.ToArray());
 
-            var urls = _wallpaperRepository.GetListAsync().Result.Select(x => x.Url);
-            wallpapers = wallpapers.Where(x => !urls.Contains(x.Url)).ToList();
-            if (wallpapers.Any())
+                var wallpapers = new List<Wallpaper>();
+
+                foreach (var list in list_task)
+                {
+                    var item = await list;
+
+                    var imgs = item.Result.DocumentNode.SelectNodes("//article[@id='wper']/div[@class='jbox']/div[@class='kbox']/div/a/img[1]").ToList();
+                    imgs.ForEach(x =>
+                    {
+                        wallpapers.Add(new Wallpaper
+                        {
+                            Url = x.GetAttributeValue("data-big", ""),
+                            Title = x.GetAttributeValue("title", ""),
+                            Type = (int)item.Type,
+                            CreateTime = x.Attributes["data-big"].Value.Split("/").Last().Split("_").First().TryToDateTime()
+                        });
+                    });
+                }
+
+                var urls = _wallpaperRepository.GetListAsync().Result.Select(x => x.Url);
+                wallpapers = wallpapers.Where(x => !urls.Contains(x.Url)).ToList();
+                if (wallpapers.Any())
+                {
+                    await _wallpaperRepository.BulkInsertAsync(wallpapers);
+                }
+
+                // 发送Email
+                //var message = new MimeMessage
+                //{
+                //    Subject = "【定时任务】壁纸数据抓取任务推送",
+                //    Body = new BodyBuilder
+                //    {
+                //        HtmlBody = $"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}"
+                //    }.ToMessageBody()
+                //};
+                //await EmailHelper.SendAsync(message);
+                LoggerHelper.Write($"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+            }
+            catch (Exception ex)
             {
-                await _wallpaperRepository.BulkInsertAsync(wallpapers);
+                LoggerHelper.Write(ex, $"异常：WallpaperJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
             }
-
-            // 发送Email
-            //var message = new MimeMessage
-            //{
-            //    Subject = "【定时任务】壁纸数据抓取任务推送",
-            //    Body = new BodyBuilder
-            //    {
-            //        HtmlBody = $"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}"
-            //    }.ToMessageBody()
-            //};
-            //await EmailHelper.SendAsync(message);
-            LoggerHelper.Write($"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
         }
     }
 }

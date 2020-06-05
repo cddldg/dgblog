@@ -20,6 +20,18 @@
     <ProjectReference Include="..\DG.Blog.Swagger\DG.Blog.Swagger.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DG.Blog.Application.Contracts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DG.Blog.Domain.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DG.Blog.HttpApi.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <ProjectExtensions>
     <VisualStudio>
       <UserProperties appsettings_1json__JsonSchema="" />

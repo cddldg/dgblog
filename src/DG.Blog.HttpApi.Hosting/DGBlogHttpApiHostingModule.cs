@@ -37,7 +37,19 @@ namespace DG.Blog.HttpApi.Hosting
                 // 在生成的URL后面添加斜杠
                 options.AppendTrailingSlash = true;
             });
-
+            //添加cors 服务 配置跨域处理
+            context.Services.AddCors(options =>
+            {
+                options.AddPolicy("corshost", builder =>
+                {
+                    builder
+                    .AllowAnyOrigin() //允许任何来源的主机访问
+                    //.WithOrigins(_config.CorsHosts)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                    //.AllowCredentials();//指定处理cookie
+                });
+            });
             // 身份验证之JWT
             context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                    .AddJwtBearer(options =>
@@ -95,7 +107,7 @@ namespace DG.Blog.HttpApi.Hosting
             app.UseRouting();
 
             // 跨域
-            app.UseCors();
+            app.UseCors("corshost");
             // 异常处理中间件
             app.UseMiddleware<ExceptionHandlerMiddleware>();
 
