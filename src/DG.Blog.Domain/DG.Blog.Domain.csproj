@@ -11,11 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Identity.Domain" Version="2.8.0" />
+    <PackageReference Include="Volo.Abp.Identity.Domain" Version="2.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DG.Blog.Domain.Shared\DG.Blog.Domain.Shared.csproj" />
   </ItemGroup>
-
 </Project>
