@@ -18,5 +18,6 @@
 
     <ProjectReference Include="..\DG.Blog.Application\DG.Blog.Application.csproj" />
     <ProjectReference Include="..\DG.Blog.Domain.Shared\DG.Blog.Domain.Shared.csproj" />
+    <ProjectReference Include="..\DG.Blog.Redis\DG.Blog.Redis.csproj" />
   </ItemGroup>
 </Project>

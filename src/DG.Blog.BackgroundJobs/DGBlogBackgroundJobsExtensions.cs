@@ -18,7 +18,21 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<HotNewsJob>();
 
-            RecurringJob.AddOrUpdate("每日热点数据抓取", () => job.RunAsync(), CronType.Hour(10, 2));
+            RecurringJob.AddOrUpdate("每日热点抓取", () => job.RunAsync(), CronType.Hour(10, 2));
+        }
+
+        public static void UseProxysJob(this ApplicationInitializationContext context)
+        {
+            var job = context.ServiceProvider.GetService<ProxysJob>();
+
+            RecurringJob.AddOrUpdate("代理数据抓取", () => job.RunAsync(), CronType.Hour(20, 1));
+        }
+
+        public static void UseProxyTestJob(this ApplicationInitializationContext context)
+        {
+            var job = context.ServiceProvider.GetService<ProxyTestJob>();
+
+            RecurringJob.AddOrUpdate("检测代理数据", () => job.RunAsync(), CronType.Minute(30));
         }
     }
 }

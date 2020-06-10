@@ -12,16 +12,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
+using System.Net;
+using DG.Blog.Redis;
+using System.Text;
 
 namespace DG.Blog.BackgroundJobs.Jobs
 {
     public class WallpaperJob : ITransientDependency
     {
         private readonly IWallpaperRepository _wallpaperRepository;
+        private readonly DGBlogRedisContext _redis;
 
-        public WallpaperJob(IWallpaperRepository wallpaperRepository)
+        public WallpaperJob(IWallpaperRepository wallpaperRepository, DGBlogRedisContext redisContext)
         {
             _wallpaperRepository = wallpaperRepository;
+            _redis = redisContext;
         }
 
         /// <summary>
@@ -58,16 +63,26 @@ namespace DG.Blog.BackgroundJobs.Jobs
             };
 
                 var web = new HtmlWeb();
-                var list_task = new List<Task<WallpaperJobItem<HtmlDocument>>>();
 
+                var list_task = new List<Task<WallpaperJobItem<HtmlDocument>>>();
+                var proxy = await _redis.ZRandomAsync();
+                var hasProxy = !string.IsNullOrWhiteSpace(proxy);
                 wallpaperUrls.ForEach(item =>
                 {
                     var task = Task.Run(async () =>
                     {
-                        var htmlDocument = await web.LoadFromWebAsync(item.Result);
+                        var obj = new HtmlDocument();
+                        if (hasProxy)
+                        {
+                            WebClient wc = new WebClient();
+                            wc.Proxy = new WebProxy(proxy);
+                            obj.LoadHtml(await wc.DownloadStringTaskAsync(item.Result));
+                        }
+                        else
+                            obj = await web.LoadFromWebAsync(item.Result);
                         return new WallpaperJobItem<HtmlDocument>
                         {
-                            Result = htmlDocument,
+                            Result = obj,
                             Type = item.Type
                         };
                     });
@@ -100,22 +115,33 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 {
                     await _wallpaperRepository.BulkInsertAsync(wallpapers);
                 }
-
-                // 发送Email
-                //var message = new MimeMessage
-                //{
-                //    Subject = "【定时任务】壁纸数据抓取任务推送",
-                //    Body = new BodyBuilder
-                //    {
-                //        HtmlBody = $"本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}"
-                //    }.ToMessageBody()
-                //};
-                //await EmailHelper.SendAsync(message);
-                LoggerHelper.Write($"壁纸数据抓取 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                _ = EmailAsync(wallpapers.Count());
+                LoggerHelper.Write($"壁纸数据抓取 hasProxy={hasProxy} {proxy} 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             }
             catch (Exception ex)
             {
                 LoggerHelper.Write(ex, $"壁纸数据抓取 异常：WallpaperJob本次抓取异常, {DateTime.Now:yyyy -MM-dd HH:mm:ss}");
+            }
+        }
+
+        private async Task EmailAsync(int count)
+        {
+            try
+            {
+                var message = new MimeMessage
+                {
+                    Subject = "【定时任务】壁纸数据抓取任务推送",
+                    Body = new BodyBuilder
+                    {
+                        HtmlBody = $"本次抓取到{count}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}"
+                    }.ToMessageBody()
+                };
+                await EmailHelper.SendAsync(message);
+                LoggerHelper.Write($"邮件发送成功 {count}");
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.Write(ex, $"邮件发送失败 {count}");
             }
         }
     }

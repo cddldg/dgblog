@@ -23,6 +23,16 @@ namespace DG.Blog.ToolKits.Extensions
             });
         }
 
+        public static string ToJsons(this object obj)
+        {
+            if (obj == null)
+                return default;
+            return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings
+            {
+                DateFormatString = "yyyy-MM-dd HH:mm:ss",
+            });
+        }
+
         /// <summary>
         /// JSON字符串转实体对象
         /// </summary>

@@ -18,6 +18,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
+using DG.Blog.Redis;
+using System.Net;
 
 namespace DG.Blog.BackgroundJobs.Jobs
 {
@@ -25,12 +27,14 @@ namespace DG.Blog.BackgroundJobs.Jobs
     {
         private readonly IHttpClientFactory _httpClient;
         private readonly IHotNewsRepository _hotNewsRepository;
+        private readonly DGBlogRedisContext _redis;
 
         public HotNewsJob(IHttpClientFactory httpClient,
-                          IHotNewsRepository hotNewsRepository)
+                          IHotNewsRepository hotNewsRepository, DGBlogRedisContext redisContext)
         {
             _httpClient = httpClient;
             _hotNewsRepository = hotNewsRepository;
+            _redis = redisContext;
         }
 
         /// <summary>
@@ -64,43 +68,46 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 new HotNewsJobItem<string> { Result = "https://www.iesdouyin.com/web/api/v2/hotsearch/billboard/aweme/?type=positive", Source = HotNewsEnum.douyin_positive },
             };
 
-                var web = new HtmlWeb();
                 var list_task = new List<Task<HotNewsJobItem<object>>>();
-
+                var proxy = await _redis.ZRandomAsync();
+                var hasProxy = !string.IsNullOrWhiteSpace(proxy);
                 hotnewsUrls.ForEach(item =>
                 {
-                    var task = Task.Run(async () =>
+                    try
                     {
-                        var obj = new object();
+                        var task = Task.Run(async () =>
+                                    {
+                                        var obj = new object();
 
-                        if (item.Source == HotNewsEnum.juejin)
-                        {
-                            using var client = _httpClient.CreateClient();
-
-                            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.14 Safari/537.36 Edg/83.0.478.13");
-                            client.DefaultRequestHeaders.Add("X-Agent", "Juejin/Web");
-                            var data = "{\"extensions\":{\"query\":{ \"id\":\"21207e9ddb1de777adeaca7a2fb38030\"}},\"operationName\":\"\",\"query\":\"\",\"variables\":{ \"first\":20,\"after\":\"\",\"order\":\"THREE_DAYS_HOTTEST\"}}";
-                            var buffer = data.SerializeUtf8();
-                            var byteContent = new ByteArrayContent(buffer);
-                            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-                            var httpResponse = await client.PostAsync(item.Result, byteContent);
-                            obj = await httpResponse.Content.ReadAsStringAsync();
-                        }
-                        else
-                        {
-                            // 针对GBK、GB2312编码网页，注册提供程序，否则获取到的数据乱码
-                            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                            obj = await web.LoadFromWebAsync(item.Result, (item.Source == HotNewsEnum.baidu || item.Source == HotNewsEnum.news163) ? Encoding.GetEncoding("GB2312") : Encoding.UTF8);
-                        }
-
-                        return new HotNewsJobItem<object>
-                        {
-                            Result = obj,
-                            Source = item.Source
-                        };
-                    });
-                    list_task.Add(task);
+                                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                                        WebClient wc = new WebClient
+                                        {
+                                            Encoding = (item.Source == HotNewsEnum.baidu || item.Source == HotNewsEnum.news163) ? Encoding.GetEncoding("GB2312") : Encoding.UTF8
+                                        };
+                                        if (hasProxy)
+                                            wc.Proxy = new WebProxy(proxy);
+                                        if (item.Source == HotNewsEnum.juejin)
+                                        {
+                                            wc.Headers.Add("User-Agent", ProxyHelper.GetUserAgent());
+                                            wc.Headers.Add("X-Agent", "Juejin/Web");
+                                            var data = "{\"extensions\":{\"query\":{ \"id\":\"21207e9ddb1de777adeaca7a2fb38030\"}},\"operationName\":\"\",\"query\":\"\",\"variables\":{ \"first\":20,\"after\":\"\",\"order\":\"THREE_DAYS_HOTTEST\"}}";
+                                            var buffer = data.SerializeUtf8();
+                                            var byteContent = new ByteArrayContent(buffer);
+                                            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                                        }
+                                        obj = await wc.DownloadStringTaskAsync(item.Result);
+                                        return new HotNewsJobItem<object>
+                                        {
+                                            Result = obj,
+                                            Source = item.Source
+                                        };
+                                    });
+                        list_task.Add(task);
+                    }
+                    catch (Exception ex)
+                    {
+                        LoggerHelper.Write(ex, $"每日热点数据抓取 异常：本次抓取异常 hasProxy={hasProxy} {proxy} {item.ToJsons()} ");
+                    }
                 });
                 Task.WaitAll(list_task.ToArray());
 
@@ -397,7 +404,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
                 _ = SendingAsync(hotNews.Count());
 
-                LoggerHelper.Write("每日热点数据抓取 本次抓取到{0}条数据，时间:{1}.<img src=\"cid:{2}\"/>".FormatWith(hotNews.Count(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), 0));
+                LoggerHelper.Write($"每日热点数据抓取 hasProxy={hasProxy} {proxy} 本次抓取到{hotNews.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}.");
             }
             catch (Exception ex)
             {

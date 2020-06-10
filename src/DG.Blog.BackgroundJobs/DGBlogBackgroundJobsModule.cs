@@ -6,10 +6,14 @@ using DG.Blog.Domain.Shared;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Modularity;
+using DG.Blog.Redis;
 
 namespace DG.Blog.BackgroundJobs
 {
-    [DependsOn(typeof(AbpBackgroundJobsHangfireModule))]
+    [DependsOn(
+        typeof(AbpBackgroundJobsHangfireModule),
+        typeof(DGBlogRedisModule)
+        )]
     public class DGBlogBackgroundJobsModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -57,6 +61,12 @@ namespace DG.Blog.BackgroundJobs
 
             // 每日热点数据抓取
             context.UseHotNewsJob();
+
+            // 代理数据抓取
+            context.UseProxysJob();
+
+            // 检测代理数据
+            context.UseProxyTestJob();
         }
     }
 }

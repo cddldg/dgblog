@@ -1,5 +1,9 @@
-﻿using DG.Blog.ToolKits.Extensions;
+﻿using CSRedis;
+using DG.Blog.Domain.Configurations;
+using DG.Blog.ToolKits.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Redis;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
@@ -7,6 +11,16 @@ namespace DG.Blog.Application.Caching
 {
     public static class DGBlogApplicationCachingExtensions
     {
+        /// <summary>
+        /// IDistributedCache替换为CSRedis
+        /// </summary>
+        /// <param name="service"></param>
+        public static void AddDistributedCSRedisCache(this IServiceCollection service)
+        {
+            RedisHelper.Initialization(new CSRedisClient(AppSettings.Caching.RedisConnectionString));
+            service.AddSingleton<IDistributedCache>(new CSRedisCache(RedisHelper.Instance));
+        }
+
         /// <summary>
         /// 获取或添加缓存
         /// </summary>
@@ -21,6 +35,7 @@ namespace DG.Blog.Application.Caching
             TCacheItem cacheItem;
 
             var result = await cache.GetStringAsync(key);
+
             if (string.IsNullOrEmpty(result))
             {
                 cacheItem = await factory.Invoke();

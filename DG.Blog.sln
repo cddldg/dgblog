@@ -33,9 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.EntityFrameworkCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.ToolKits", "src\DG.Blog.ToolKits\DG.Blog.ToolKits.csproj", "{3C816E57-16C2-437B-90B4-A939BF07545B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.BackgroundJobs", "src\DG.Blog.BackgroundJobs\DG.Blog.BackgroundJobs.csproj", "{5A8A99D2-4810-4881-9E92-6F8A2D6A1342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.BackgroundJobs", "src\DG.Blog.BackgroundJobs\DG.Blog.BackgroundJobs.csproj", "{5A8A99D2-4810-4881-9E92-6F8A2D6A1342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.Swagger", "src\DG.Blog.Swagger\DG.Blog.Swagger.csproj", "{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Swagger", "src\DG.Blog.Swagger\DG.Blog.Swagger.csproj", "{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.Redis", "src\DG.Blog.Redis\DG.Blog.Redis.csproj", "{8ADD5EA3-E256-47DB-AB33-1E046D827E30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

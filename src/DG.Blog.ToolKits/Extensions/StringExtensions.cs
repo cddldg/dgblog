@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace DG.Blog.ToolKits.Extensions
 {
@@ -45,10 +46,10 @@ namespace DG.Blog.ToolKits.Extensions
             return !string.IsNullOrWhiteSpace(inputStr);
         }
 
-        #endregion
+        #endregion 空判断
 
         #region 常用正则表达式
-        
+
         private static readonly Regex EmailRegex = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase);
 
         private static readonly Regex MobileRegex = new Regex("^1[0-9]{10}$");
@@ -56,6 +57,8 @@ namespace DG.Blog.ToolKits.Extensions
         private static readonly Regex PhoneRegex = new Regex(@"^(\d{3,4}-?)?\d{7,8}$");
 
         private static readonly Regex IpRegex = new Regex(@"^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$");
+
+        public static readonly Regex ProxyIpRegex = new Regex(@"\d+\.\d+\.\d+\.\d+\:\d+");
 
         private static readonly Regex DateRegex = new Regex(@"(\d{4})-(\d{1,2})-(\d{1,2})");
 
@@ -163,7 +166,12 @@ namespace DG.Blog.ToolKits.Extensions
             return suffix.Contains(fileSuffix);
         }
 
-        #endregion
+        //public static bool IsIp(this string ipstr)
+        //{
+        //    return Regex.IsMatch(ipstr, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+        //}
+
+        #endregion 常用正则表达式
 
         #region 字符串截取
 
@@ -202,7 +210,7 @@ namespace DG.Blog.ToolKits.Extensions
             return inputStr.IsNullOrEmpty() ? inputStr : Regex.Replace(inputStr, pattern, replacement);
         }
 
-        #endregion
+        #endregion 字符串截取
 
         #region Format
 
@@ -300,6 +308,15 @@ namespace DG.Blog.ToolKits.Extensions
             return string.Format(@this, arg0);
         }
 
-        #endregion
+        #endregion Format
+
+        #region 代理
+
+        public static bool IsProxyIp(this string s)
+        {
+            return ProxyIpRegex.IsMatch(s);
+        }
+
+        #endregion 代理
     }
 }
