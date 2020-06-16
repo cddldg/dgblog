@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.BackgroundJobs", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Swagger", "src\DG.Blog.Swagger\DG.Blog.Swagger.csproj", "{A9B8B873-9C65-469C-9E55-20B5C6CE10E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.Redis", "src\DG.Blog.Redis\DG.Blog.Redis.csproj", "{8ADD5EA3-E256-47DB-AB33-1E046D827E30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Redis", "src\DG.Blog.Redis\DG.Blog.Redis.csproj", "{8ADD5EA3-E256-47DB-AB33-1E046D827E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.Web", "src\DG.Blog.Web\DG.Blog.Web.csproj", "{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,10 @@ Global
 		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ADD5EA3-E256-47DB-AB33-1E046D827E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

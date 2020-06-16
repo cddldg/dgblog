@@ -18,7 +18,7 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<HotNewsJob>();
 
-            RecurringJob.AddOrUpdate("每日热点抓取", () => job.RunAsync(), CronType.Hour(10, 2));
+            RecurringJob.AddOrUpdate("每日热点抓取", () => job.RunAsync(), CronType.Hour(10, 1));
         }
 
         public static void UseProxysJob(this ApplicationInitializationContext context)
@@ -32,7 +32,7 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<ProxyTestJob>();
 
-            RecurringJob.AddOrUpdate("检测代理数据", () => job.RunAsync(), CronType.Minute(30));
+            RecurringJob.AddOrUpdate("检测代理数据", () => job.RunAsync(), CronType.Hour(30, 1));
         }
     }
 }
