@@ -20,6 +20,7 @@
 func = {
     setStorage: function (name, value) {
         localStorage.setItem(name, value);
+        console.log('set', name, value);
     },
     getStorage: function (name) {
         return localStorage.getItem(name);
@@ -33,6 +34,9 @@ func = {
         } else {
             document.querySelector('body').classList.remove('dark-theme');
         }
+    },
+    setDarkTheme: function () {
+        document.querySelector('body').classList.add('dark-theme');
     },
     switchEditorTheme: function () {
         editor.setTheme(localStorage.editorTheme || 'default');
