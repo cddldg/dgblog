@@ -53,6 +53,17 @@ namespace DG.Blog.Domain.Configurations
         }
 
         /// <summary>
+        /// Caching
+        /// </summary>
+        public static class Redis
+        {
+            /// <summary>
+            /// RedisConnectionString
+            /// </summary>
+            public static string ConnectionString => _config["Redis:ConnectionString"];
+        }
+
+        /// <summary>
         /// Hangfire
         /// </summary>
         public static class Hangfire
