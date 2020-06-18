@@ -1,16 +1,16 @@
-﻿@page "/post/{year:int}/{month:int}/{day:int}/{name}"
-
+﻿@page "/post/{Year:int}/{Month:int}/{Day:int}/{Name}"
+@inherits PostBase
 <link href="./editor.md/css/editormd.preview.css" rel="stylesheet" />
 
-@if (post == null)
+@if (Post == null)
 {
     <Loading />
 }
 else
 {
-    @if (post.Success)
+    @if (Post.Success)
     {
-        var _post = post.Result;
+        var _post = Post.Result;
 
         <article class="post-wrap">
             <header class="post-header">
@@ -85,48 +85,4 @@ else
     {
         <ErrorTip />
     }
-}
-
-@code {
-    [Parameter]
-    public int year { get; set; }
-
-    [Parameter]
-    public int month { get; set; }
-
-    [Parameter]
-    public int day { get; set; }
-
-    [Parameter]
-    public string name { get; set; }
-
-    /// <summary>
-    /// URL
-    /// </summary>
-    private string url => $"/{year}/{(month >= 10 ? month.ToString() : $"0{month}")}/{(day >= 10 ? day.ToString() : $"0{day}")}/{name}";
-
-    /// <summary>
-    /// 文章详情数据
-    /// </summary>
-    private ServiceResult<PostDetailDto> post;
-
-    /// <summary>
-    /// 初始化
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await FetchData(url);
-    }
-
-    /// <summary>
-    /// 请求数据，渲染页面
-    /// </summary>
-    /// <param name="url"></param>
-    /// <returns></returns>
-    private async Task FetchData(string url, bool isPostNav = false)
-    {
-        post = await Http.GetFromJsonAsync<ServiceResult<PostDetailDto>>($"/blog/post?url={url}");
-        await Common.InvokeAsync("window.func.renderMarkdown");
-    }
-
 }

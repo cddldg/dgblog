@@ -7,6 +7,7 @@ namespace DG.Blog.Web.Commons
 {
     public class Common
     {
+        public const string AppTitle = "抵拢倒拐";
         private readonly IJSRuntime _jsRuntime;
 
         private readonly NavigationManager _navigationManager;
@@ -39,6 +40,11 @@ namespace DG.Blog.Web.Commons
         public async ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object[] args)
         {
             return await _jsRuntime.InvokeAsync<TValue>(identifier, args);
+        }
+
+        public async Task SetTitleAsync(string title = null)
+        {
+            await InvokeAsync("window.func.changeTitle", title == null ? AppTitle : $"{AppTitle}-{title}");
         }
 
         /// <summary>

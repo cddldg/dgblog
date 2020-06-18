@@ -11,3 +11,9 @@
         </li>
     </ul>
 </div>
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        await Common.SetTitleAsync("😍🏀💻🕹");
+    }
+}

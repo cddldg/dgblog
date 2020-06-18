@@ -6,8 +6,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using System.Linq;
-
 namespace DG.Blog.Web.Commons
 {
     public static class HttpExtensions

@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using static Commons.HttpExtensions;
+@inherits IndexBase
 <style>
     body {
         background-color: rgba(0,0,0,0.3);
@@ -61,42 +61,3 @@
 <div style="position:absolute;right:0px;bottom:0px;width:120px;overflow:hidden;font-size:6px">
     <a href="http://beian.miit.gov.cn/" target="_blank">蜀ICP备17042511号-1</a>
 </div>
-@code {
-    public string currentTheme = "Dark";
-    /// <summary>
-    /// 是否隐藏
-    /// </summary>
-    private bool IsHidden = true;
-
-    /// <summary>
-    /// 二维码CSS
-    /// </summary>
-    private string QrCodeCssClass => IsHidden ? "hidden" : null;
-
-    /// <summary>
-    /// 鼠标移入移出操作
-    /// </summary>
-    private void Hover() => IsHidden = !IsHidden;
-
-    private string BgImage = $"/images/index/{new Random().Next(1, 9)}.jpg";
-
-    /// <summary>
-    /// 初始化
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-
-        await FetchData();
-    }
-
-    /// <summary>
-    /// 请求数据，渲染页面
-    /// <returns></returns>
-    private async Task FetchData()
-    {
-        BgImage = await Http.GetImage<object>();
-        BgImage = string.IsNullOrWhiteSpace(BgImage) ? $"/images/index/{new Random().Next(1, 9)}.jpg" : BgImage;
-
-    }
-
-}

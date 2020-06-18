@@ -57,16 +57,16 @@ namespace DG.Blog.BackgroundJobs
             });
 
             // 壁纸数据抓取
-            //context.UseWallpaperJob();
+            context.UseWallpaperJob();
 
             // 每日热点数据抓取
-            //context.UseHotNewsJob();
+            context.UseHotNewsJob();
 
             // 代理数据抓取
-            //context.UseProxysJob();
+            context.UseProxysJob();
 
             // 检测代理数据
-            //context.UseProxyTestJob();
+            context.UseProxyTestJob();
         }
     }
 }

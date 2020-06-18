@@ -131,10 +131,11 @@ namespace DG.Blog.HttpApi.Hosting
     [DependsOn(
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutofacModule),
-
-        typeof(DGBlogBackgroundJobsModule)
+        typeof(DGBlogHttpApiModule),
+        typeof(DGBlogSwaggerModule),
+        typeof(DGBlogFrameworkCoreModule)
         )]
-    public class DGBlogHttpApiHostingModule2 : AbpModule
+    public class DGBlogHttpApiHostingModuleTest : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {

@@ -56,6 +56,7 @@ else
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
+        await Common.SetTitleAsync("😍🏀💻🕹");
         // TODO:获取数据,可以在API中合并这两个请求。
         var category = await Http.GetFromJsonAsync<ServiceResult<string>>($"/blog/category?name={name}");
         posts = await Http.GetFromJsonAsync<ServiceResult<IEnumerable<QueryPostDto>>>($"/blog/posts/category?name={name}");

@@ -7,7 +7,7 @@ namespace DG.Blog.HttpApi.Hosting
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication<DGBlogHttpApiHostingModule>();
+            services.AddApplication<DGBlogHttpApiHostingModuleTest>();
         }
 
         public void Configure(IApplicationBuilder app)

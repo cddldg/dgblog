@@ -16,8 +16,11 @@
         <div class="loader"></div>
     </app>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="js/app.js"></script>
     <script>
+        document.write("<script type='text/javascript' src='js/app.js?v=" + Math.random() + "'></s" + "cript>");
+    </script>
+    <script>
+
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");

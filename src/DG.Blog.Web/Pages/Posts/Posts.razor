@@ -72,6 +72,7 @@ else
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
+        await Common.SetTitleAsync("😍🏀💻🕹");
         // 设置默认值
         page = page.HasValue ? page : 1;
 

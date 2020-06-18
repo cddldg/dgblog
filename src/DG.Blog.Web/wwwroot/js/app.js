@@ -18,6 +18,9 @@
 }(window.location));
 
 func = {
+    changeTitle: function (title) {
+        document.title = title;
+    },
     setStorage: function (name, value) {
         localStorage.setItem(name, value);
         console.log('set', name, value);
