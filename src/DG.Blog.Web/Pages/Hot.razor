@@ -1,0 +1,44 @@
+﻿@page "/hot"
+@inherits HotBase
+
+@if (HotSources == null)
+{
+    <Loading />
+}
+else
+{
+    <div class="main">
+        <div class="container tab-box">
+            @if (HotSources.Success && HotSources.Result.Any())
+            {
+                <div class="top-tab">
+                    <ul>
+                        @foreach (var source in HotSources.Result)
+                        {
+                            <li><a href="javascript:;" @onclick="async ()=> { SourcesId = source.Value;await FetchData(source.Value); }" class="paper-btn margin01 @(source.Value==SourcesId?"archive":"")">@source.Description</a></li>
+                        }
+                    </ul>
+                </div>
+            }
+            @if (HotNews.Success)
+            {
+                <div class="top-content">
+                    <div class="loader" style="display: none;"></div>
+                    @if (HotNews.Result.Any())
+                    {
+                        <ul>
+                            @foreach (var news in HotNews.Result)
+                            {
+                                <li><a target="_blank" href="@(news.Url)">@news.Title</a></li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <h2 class="eror-tip">Sorry, there's nothing at this address.😖😖😖</h2>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}

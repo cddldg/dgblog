@@ -25,7 +25,7 @@ namespace DG.Blog.Web.Components
         /// </summary>
         protected void Hover() => IsHidden = !IsHidden;
 
-        protected string BgImage = $"/images/index/{new Random().Next(1, 9)}.jpg";
+        protected string BgImage = "";//$"/images/index/{new Random().Next(1, 9)}.jpg";
 
         /// <summary>
         /// 初始化

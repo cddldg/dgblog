@@ -15,12 +15,21 @@
     <app>
         <div class="loader"></div>
     </app>
+    <div class="to-top">
+        <a href="javascript:pageScroll();" class="paper-btn margin">^</a>
+    </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
         document.write("<script type='text/javascript' src='js/app.js?v=" + Math.random() + "'></s" + "cript>");
     </script>
     <script>
-
+        function pageScroll() {
+            //document.getElementById('top').scrollIntoView();
+            window.scrollBy(0, -100);
+            scrolldelay = setTimeout('pageScroll()', 100);
+            var sTop = document.documentElement.scrollTop + document.body.scrollTop;
+            if (sTop == 0) clearTimeout(scrolldelay);
+        }
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");

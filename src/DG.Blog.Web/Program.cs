@@ -14,7 +14,8 @@ namespace DG.Blog.Web
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            var baseAddress = "http://localhost:9001";
+            //var baseAddress = "http://localhost:9001";
+            var baseAddress = "http://dldg.ink:9001";
 
             //if (builder.HostEnvironment.IsProduction())
 
