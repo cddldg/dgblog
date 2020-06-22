@@ -1,6 +1,7 @@
 using DG.Blog.Web.Commons;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,8 +15,7 @@ namespace DG.Blog.Web
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            //var baseAddress = "http://localhost:9001";
-            var baseAddress = "http://dldg.ink:9001";
+            var baseAddress = builder.Configuration["BaseAddress"];
 
             //if (builder.HostEnvironment.IsProduction())
 
