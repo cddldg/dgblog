@@ -1,6 +1,6 @@
 ﻿namespace DG.Blog.Application.Contracts.Blog.Params
 {
-    public class EditPostInput: PostForAdminDto
+    public class EditPostInput : PostForAdminDto
     {
     }
 }
