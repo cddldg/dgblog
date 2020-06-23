@@ -52,7 +52,7 @@ namespace DG.Blog.Application.Wallpaper.Impl
             {
                 var result = new ServiceResult<PagedList<WallpaperDto>>();
 
-                var query = _wallpaperRepository.WhereIf(input.Type > 0, x => x.Type == input.Type)
+                var query = _wallpaperRepository.WhereIf(input.Type > -1, x => x.Type == input.Type)
                                                 .WhereIf(input.Keywords.IsNotNullOrEmpty(), x => x.Title.Contains(input.Keywords))
                                                 .OrderByDescending(x => x.CreateTime);
                 var count = query.Count();
@@ -92,6 +92,20 @@ namespace DG.Blog.Application.Wallpaper.Impl
 
             await _wallpaperRepository.BulkInsertAsync(wallpapers);
 
+            result.IsSuccess(ResponseText.INSERT_SUCCESS);
+            return result;
+        }
+
+        public async Task<ServiceResult<string>> GetRandomWallpaperAsync(int type)
+        {
+            var result = new ServiceResult<string>();
+            var random=await _wallpaperRepository.GetRandomAsync(type);
+            if (random==null)
+            {
+                result.IsFailed(ResponseText.DATA_IS_NONE);
+                return result;
+            }
+            result.Result = random.Url;
             result.IsSuccess(ResponseText.INSERT_SUCCESS);
             return result;
         }

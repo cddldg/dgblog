@@ -27,5 +27,7 @@ namespace DG.Blog.Application.Wallpaper
         /// <param name="input"></param>
         /// <returns></returns>
         Task<ServiceResult<string>> BulkInsertWallpaperAsync(BulkInsertWallpaperInput input);
+
+        Task<ServiceResult<string>> GetRandomWallpaperAsync(int type);
     }
 }

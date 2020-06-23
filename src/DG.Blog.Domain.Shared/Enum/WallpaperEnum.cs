@@ -4,6 +4,8 @@ namespace DG.Blog.Domain.Shared.Enum
 {
     public enum WallpaperEnum
     {
+        [Description("背景")]
+        BgImage = 0,
         [Description("美女")]
         Beauty = 1,
 

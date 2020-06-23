@@ -5,6 +5,7 @@ using DG.Blog.ToolKits.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 using static DG.Blog.Domain.Shared.DGBlogConsts;
@@ -33,7 +34,17 @@ namespace DG.Blog.HttpApi.Controllers
         {
             return await _wallpaperService.GetWallpaperTypesAsync();
         }
-
+        /// <summary>
+        /// 获取随机壁纸
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("random")]
+        public async Task<ServiceResult<string>> GetRandomWallpaperAsync([Required] int type)
+        {
+            return await _wallpaperService.GetRandomWallpaperAsync(type);
+        }
         /// <summary>
         /// 分页查询壁纸
         /// </summary>

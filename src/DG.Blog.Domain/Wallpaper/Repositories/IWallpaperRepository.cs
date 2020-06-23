@@ -16,5 +16,7 @@ namespace DG.Blog.Domain.Wallpaper.Repositories
         /// <param name="wallpapers"></param>
         /// <returns></returns>
         Task BulkInsertAsync(IEnumerable<Wallpaper> wallpapers);
+
+        Task<Wallpaper> GetRandomAsync(int type);
     }
 }

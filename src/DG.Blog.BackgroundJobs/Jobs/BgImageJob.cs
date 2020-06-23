@@ -15,6 +15,9 @@ using MimeKit.Utils;
 using DG.Blog.ToolKits.Extensions;
 using System.Net;
 using System.Net.Http;
+using DG.Blog.Domain.Wallpaper.Repositories;
+using DG.Blog.Domain.Wallpaper;
+using DG.Blog.Domain.Shared.Enum;
 
 namespace DG.Blog.BackgroundJobs.Jobs
 {
@@ -23,11 +26,12 @@ namespace DG.Blog.BackgroundJobs.Jobs
         private readonly DGBlogRedisContext _redis;
         private readonly IHttpClientFactory _httpClient;
         private const string KEY_BgImageJob = "BgImageJob";
-
-        public BgImageJob(DGBlogRedisContext redisContext, IHttpClientFactory httpClient)
+        private readonly IWallpaperRepository _wallpaperRepository;
+        public BgImageJob(DGBlogRedisContext redisContext, IHttpClientFactory httpClient, IWallpaperRepository wallpapers)
         {
             _redis = redisContext;
             _httpClient = httpClient;
+            _wallpaperRepository = wallpapers;
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
             try
             {
                 LoggerHelper.Write($"背景图片数据抓取 {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-                var per = 10;
+                var per = 80;
                 var pageUrls = new List<string>
                 {
                     $"https://api.pexels.com/v1/search?query=sexy&per_page={per}&page={new Random().Next(1, 100)}",
@@ -51,14 +55,19 @@ namespace DG.Blog.BackgroundJobs.Jobs
                     $"https://api.pexels.com/v1/search?query=green&per_page={per}&page={new Random().Next(1, 100)}",
                     $"https://api.pexels.com/v1/search?query=sport&per_page={per}&page={new Random().Next(1, 100)}",
                     $"https://api.pexels.com/v1/search?query=phone&per_page={per}&page={new Random().Next(1, 100)}",
-                    $"https://api.pexels.com/v1/search?query=car&per_page={per}&page={new Random().Next(1, 100)}"
+                    $"https://api.pexels.com/v1/search?query=car&per_page={per}&page={new Random().Next(1, 100)}",
+                    $"https://api.pexels.com/v1/search?query=lingerie&per_page={per}&page={new Random().Next(1, 100)}",
+                    $"https://api.pexels.com/v1/search?query=pretty&per_page={per}&page={new Random().Next(1, 100)}",
+                    $"https://api.pexels.com/v1/search?query=couple&per_page={per}&page={new Random().Next(1, 100)}",
+                    
+
                 };
 
                 var list_task = new List<Task<HtmlDocument>>();
 
                 var web = new HtmlWeb();
 
-                pageUrls.ForEach(async item =>
+                pageUrls.ForEach(item =>
                 {
                     var task = Task.Run(async () =>
                     {
@@ -75,7 +84,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 });
                 Task.WaitAll(list_task.ToArray());
 
-                var images = new List<string>();
+                var wallpapers = new List<Wallpaper>();
 
                 foreach (var list in list_task)
                 {
@@ -87,7 +96,13 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         var nodes = obj["photos"];
                         foreach (var node in nodes)
                         {
-                            images.Add(node["src"]["large2x"].ToString());
+                            wallpapers.Add(new Wallpaper
+                            {
+                                Url = node["src"]["large2x"].ToString(),
+                                Title = node["photographer"].ToString(),
+                                Type = (int)WallpaperEnum.BgImage,
+                                CreateTime = DateTime.Now
+                            });
                         }
                     }
                     catch (Exception ex)
@@ -95,16 +110,16 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         LoggerHelper.Write(ex, $"背景图片数据抓取 list_task异常：本次抓取异常 {item} ");
                     }
                 }
-
-                if (images.Any())
+                var urls = _wallpaperRepository.GetListAsync().Result.Select(x => x.Url);
+                wallpapers = wallpapers.Where(x => !urls.Contains(x.Url)).ToList();
+                if (wallpapers.Any())
                 {
-                    await _redis.RemoveAsync(KEY_BgImageJob);
-                    await _redis.SetAsync(KEY_BgImageJob, images);
+                    await _wallpaperRepository.BulkInsertAsync(wallpapers);
                 }
 
-                _ = SendingAsync(images.Count());
+                _ = SendingAsync(wallpapers.Count());
 
-                LoggerHelper.Write($"背景图片数据抓取  本次抓取到{images.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}.");
+                LoggerHelper.Write($"背景图片数据抓取  本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}.");
             }
             catch (Exception ex)
             {
