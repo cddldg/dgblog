@@ -423,7 +423,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
         public async Task SendingAsync(int count, string url = null, string path = null)
         {
-            url ??= "http://www.dldg.ink";
+            url ??= "http://dldg.ink/hot";
             path ??= Path.Combine(Path.GetTempPath(), "DG.png");
             var isOk = await ScreensAsync(url, path);
 

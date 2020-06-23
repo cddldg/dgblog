@@ -67,6 +67,9 @@ namespace DG.Blog.BackgroundJobs
 
             // 检测代理数据
             //context.UseProxyTestJob();
+
+            // 背景图片
+            context.UseBgImageJob();
         }
     }
 }

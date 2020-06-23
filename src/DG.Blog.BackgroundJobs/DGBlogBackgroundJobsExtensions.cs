@@ -34,5 +34,12 @@ namespace DG.Blog.BackgroundJobs
 
             RecurringJob.AddOrUpdate("检测代理数据", () => job.RunAsync(), CronType.Hour(30, 1));
         }
+
+        public static void UseBgImageJob(this ApplicationInitializationContext context)
+        {
+            var job = context.ServiceProvider.GetService<BgImageJob>();
+
+            RecurringJob.AddOrUpdate("背景图片数据", () => job.RunAsync(), CronType.Hour(40, 1));
+        }
     }
 }
