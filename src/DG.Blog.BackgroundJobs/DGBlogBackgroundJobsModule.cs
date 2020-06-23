@@ -63,10 +63,10 @@ namespace DG.Blog.BackgroundJobs
             context.UseHotNewsJob();
 
             // 代理数据抓取
-            context.UseProxysJob();
+            //context.UseProxysJob();
 
             // 检测代理数据
-            context.UseProxyTestJob();
+            //context.UseProxyTestJob();
         }
     }
 }

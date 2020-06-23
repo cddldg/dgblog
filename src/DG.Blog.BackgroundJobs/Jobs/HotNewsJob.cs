@@ -309,7 +309,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                             {
                                 hotNews.Add(new HotNews
                                 {
-                                    Title = node["target"]["title"].ToString(),
+                                    Title = $"{node["target"]["title"]}({node["detail_text"]} {node["target"]["answer_count"]}个回答 {node["target"]["follower_count"]}关注)",
                                     Url = $"https://www.zhihu.com/question/{node["target"]["id"]}",
                                     SourceId = sourceId,
                                     CreateTime = DateTime.Now
