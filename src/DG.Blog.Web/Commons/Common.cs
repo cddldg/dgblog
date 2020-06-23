@@ -7,15 +7,14 @@ namespace DG.Blog.Web.Commons
 {
     public class Common
     {
-        public const string AppTitle = "抵拢倒拐";
         private readonly IJSRuntime _jsRuntime;
-
+        private readonly BlogConfig _config;
         private readonly NavigationManager _navigationManager;
 
-        public Common(IJSRuntime jsRuntime, NavigationManager navigationManager)
+        public Common(IJSRuntime jsRuntime, NavigationManager navigationManager, BlogConfig blogConfig)
         {
             _jsRuntime = jsRuntime;
-
+            _config = blogConfig;
             _navigationManager = navigationManager;
         }
 
@@ -44,7 +43,7 @@ namespace DG.Blog.Web.Commons
 
         public async Task SetTitleAsync(string title = null)
         {
-            await InvokeAsync("window.func.changeTitle", title == null ? AppTitle : $"{AppTitle}-{title}");
+            await InvokeAsync("window.func.changeTitle", title == null ? _config.SiteName : $"{_config.SiteName}-{title}");
         }
 
         /// <summary>

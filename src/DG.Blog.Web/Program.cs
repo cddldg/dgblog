@@ -15,15 +15,15 @@ namespace DG.Blog.Web
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            var baseAddress = builder.Configuration["BaseAddress"];
+            var config = builder.Configuration.GetSection("BlogConfig").Get<BlogConfig>();
 
             //if (builder.HostEnvironment.IsProduction())
 
             builder.Services.AddTransient(sp => new HttpClient
             {
-                BaseAddress = new Uri(baseAddress)
+                BaseAddress = new Uri(config.BaseAddress)
             });
-
+            builder.Services.AddSingleton(config);
             builder.Services.AddSingleton(typeof(Common));
 
             await builder.Build().RunAsync();

@@ -3,14 +3,14 @@
         <div class="container paper-btn padding rudong">
             <div class="navbar-header header-logo">
                 <NavLink class="menu-item" href="/">
-                    抵拢倒拐
+                    @BlogConfig.SiteName
                 </NavLink>
             </div>
             <div class="menu navbar-right">
-                <NavLink class="menu-item" href="posts">Posts</NavLink>
-                <NavLink class="menu-item" href="categories">Categories</NavLink>
-                <NavLink class="menu-item" href="tags">Tags</NavLink>
-                <NavLink class="menu-item apps" href="apps">Apps</NavLink>
+                @foreach (var menu in BlogConfig.Menus)
+                {
+                    <NavLink class="@menu.Style" href="@menu.Url">@menu.Name</NavLink>
+                }
                 <input id="switch_default"
                        type="checkbox"
                        class="switch_default"

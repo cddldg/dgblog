@@ -45,7 +45,7 @@ else
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        await Common.SetTitleAsync("😍🏀💻🕹");
+        await Common.SetTitleAsync();
         // 获取数据
         categories = await Http.GetFromJsonAsync<ServiceResult<IEnumerable<QueryCategoryDto>>>($"/blog/categories");
     }

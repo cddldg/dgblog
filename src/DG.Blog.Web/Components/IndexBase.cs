@@ -32,7 +32,7 @@ namespace DG.Blog.Web.Components
         /// </summary>
         protected override async Task OnInitializedAsync()
         {
-            await Common.SetTitleAsync("😍🏀💻🕹");
+            await Common.SetTitleAsync();
             await FetchData();
         }
 
