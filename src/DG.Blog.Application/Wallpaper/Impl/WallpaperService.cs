@@ -105,8 +105,8 @@ namespace DG.Blog.Application.Wallpaper.Impl
                 result.IsFailed(ResponseText.DATA_IS_NONE);
                 return result;
             }
-            result.Result = random.Url;
-            result.IsSuccess(ResponseText.INSERT_SUCCESS);
+
+            result.IsSuccess(random.Url,ResponseText.INSERT_SUCCESS);
             return result;
         }
     }
