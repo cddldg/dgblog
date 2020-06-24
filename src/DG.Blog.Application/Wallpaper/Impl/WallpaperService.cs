@@ -99,14 +99,14 @@ namespace DG.Blog.Application.Wallpaper.Impl
         public async Task<ServiceResult<string>> GetRandomWallpaperAsync(int type)
         {
             var result = new ServiceResult<string>();
-            var random=await _wallpaperRepository.GetRandomAsync(type);
-            if (random==null)
+            var random = await _wallpaperRepository.GetRandomAsync(type);
+            if (random == null)
             {
                 result.IsFailed(ResponseText.DATA_IS_NONE);
                 return result;
             }
 
-            result.IsSuccess(random.Url,ResponseText.INSERT_SUCCESS);
+            result.IsSuccess(random.Url);
             return result;
         }
     }

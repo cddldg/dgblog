@@ -1,7 +1,7 @@
 ﻿@page "/hot"
 @inherits HotBase
 
-@if (HotSources == null)
+@if (Sources == null)
 {
     <Loading />
 }
@@ -9,11 +9,11 @@ else
 {
     <div class="main">
         <div class="container tab-box">
-            @if (HotSources.Success && HotSources.Result.Any())
+            @if (Sources.Success && Sources.Result.Any())
             {
                 <div class="top-tab">
                     <ul>
-                        @foreach (var source in HotSources.Result)
+                        @foreach (var source in Sources.Result)
                         {
                             <li><a href="javascript:;" @onclick="async ()=> { SourcesId = source.Value;await FetchData(source.Value); }" class="paper-btn margin01 @(source.Value==SourcesId?"archive":"")">@source.Description</a></li>
                         }

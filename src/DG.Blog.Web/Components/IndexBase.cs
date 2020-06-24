@@ -1,7 +1,9 @@
 ﻿using DG.Blog.Web.Commons;
+using DG.Blog.Web.Response.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace DG.Blog.Web.Components
@@ -41,7 +43,7 @@ namespace DG.Blog.Web.Components
         /// <returns></returns>
         protected async Task FetchData()
         {
-            BgImage = await Http.GetImage<object>();
+            BgImage = (await Http.GetFromJsonAsync<ServiceResult<string>>($"/wallpaper/random?type=0")).Result;
             BgImage = string.IsNullOrWhiteSpace(BgImage) ? $"/images/index/{new Random().Next(1, 9)}.jpg" : BgImage;
         }
     }

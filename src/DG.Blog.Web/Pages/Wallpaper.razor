@@ -1,0 +1,38 @@
+﻿@page "/wallpaper"
+@inherits WallpaperBase
+
+@if (Sources == null)
+{
+    <Loading />
+}
+else
+{
+
+    <div class="post-wrap archive">
+
+        <p class="wallpaper-nav">
+            <a href="javascript:;" @onclick="async ()=> { TypeId = -1; await FetchData(-1); }" class="@(-1==TypeId?"wallpaper-active":"")">全部</a>
+            @foreach (var item in Types.Result)
+            {
+                <a href="javascript:;" @onclick="async ()=> { TypeId = item.Value; await FetchData(item.Value); }" class="@(item.Value==TypeId?"wallpaper-active":"")">@item.Description</a>
+            }
+        </p>
+
+        <div class="container">
+
+            <div class="item-a">fsfdsf</div>
+
+            <div class="item-b">fffff</div>
+
+            <div class="item-c">wwwww</div>
+
+            <div class="item-d">ffff</div>
+        </div>
+
+        <nav class="pagination">
+            <span class="page-number">Previous</span>
+            <a class="page-number" href="/wallpaper?t=0&amp;k=&amp;p=2">Next</a>
+        </nav>
+    </div>
+
+}

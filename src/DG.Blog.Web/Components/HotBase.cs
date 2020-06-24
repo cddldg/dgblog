@@ -15,7 +15,7 @@ namespace DG.Blog.Web.Components
         /// <summary>
         /// 文章详情数据
         /// </summary>
-        protected ServiceResult<IEnumerable<EnumResponse>> HotSources;
+        protected ServiceResult<IEnumerable<EnumResponse>> Sources;
 
         protected ServiceResult<IEnumerable<HotNewsDto>> HotNews;
 
@@ -33,7 +33,7 @@ namespace DG.Blog.Web.Components
         /// <returns></returns>
         protected async Task FetchData()
         {
-            HotSources = await Http.GetFromJsonAsync<ServiceResult<IEnumerable<EnumResponse>>>($"/hotnews/sources");
+            Sources = await Http.GetFromJsonAsync<ServiceResult<IEnumerable<EnumResponse>>>($"/hotnews/sources");
             HotNews = await Http.GetFromJsonAsync<ServiceResult<IEnumerable<HotNewsDto>>>($"hotnews?sourceId=1");
         }
 

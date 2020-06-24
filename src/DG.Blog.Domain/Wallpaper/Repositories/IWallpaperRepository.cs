@@ -17,6 +17,11 @@ namespace DG.Blog.Domain.Wallpaper.Repositories
         /// <returns></returns>
         Task BulkInsertAsync(IEnumerable<Wallpaper> wallpapers);
 
+        /// <summary>
+        /// 随机取背景图片
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         Task<Wallpaper> GetRandomAsync(int type);
     }
 }
