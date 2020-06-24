@@ -18,15 +18,14 @@ else
             }
         </p>
 
-        <div class="container">
+        <div class="containers">
 
-            <div class="item-a">fsfdsf</div>
-
-            <div class="item-b">fffff</div>
-
-            <div class="item-c">wwwww</div>
-
-            <div class="item-d">ffff</div>
+            @foreach (var item in Sources.Result.Item)
+            {
+                <div class="ss">
+                    <img src="@item.Url" alt="@item.Title" title="@item.Title" />
+                </div>
+            }
         </div>
 
         <nav class="pagination">
