@@ -1,4 +1,6 @@
 ﻿@page "/wallpaper"
+@page "/wallpaper/page/{Page:int}"
+@page "/wallpaper/{TypeId:int}/{Page:int}"
 @inherits WallpaperBase
 
 @if (Sources == null)
@@ -8,30 +10,31 @@
 else
 {
 
-    <div class="post-wrap archive">
+<div class="post-wrap archive">
 
-        <p class="wallpaper-nav">
-            <a href="javascript:;" @onclick="async ()=> { TypeId = -1; await FetchData(-1); }" class="@(-1==TypeId?"wallpaper-active":"")">全部</a>
-            @foreach (var item in Types.Result)
-            {
-                <a href="javascript:;" @onclick="async ()=> { TypeId = item.Value; await FetchData(item.Value); }" class="@(item.Value==TypeId?"wallpaper-active":"")">@item.Description</a>
-            }
-        </p>
+    <p class="wallpaper-nav">
+        <a href="javascript:;" @onclick="async ()=> { TypeId = -1; await FetchData(-1); }" class="@(-1==TypeId?"wallpaper-active":"")">全部</a>
+        @foreach (var item in Types.Result)
+        {
+            <a href="javascript:;" @onclick="async ()=> { TypeId = item.Value; await FetchData(item.Value); }" class="@(item.Value==TypeId?"wallpaper-active":"")">@item.Description</a>
+        }
+    </p>
 
-        <div class="containers">
+    <div class="containers">
 
-            @foreach (var item in Sources.Result.Item)
-            {
-                <div class="ss">
-                    <img src="@item.Url" alt="@item.Title" title="@item.Title" />
-                </div>
-            }
-        </div>
-
-        <nav class="pagination">
-            <span class="page-number">Previous</span>
-            <a class="page-number" href="/wallpaper?t=0&amp;k=&amp;p=2">Next</a>
-        </nav>
+        @foreach (var item in Sources.Result.Item)
+        {
+            <div class="ss" style="background-image:url(@item.Url)" alt="@item.Title" title="@item.Title" onclick="window.open('@item.Url','_blank');">
+                @*<img src="@item.Url" alt="@item.Title" title="@item.Title" />*@
+            </div>
+        }
     </div>
+
+    <nav class="pagination">
+        <a class="page-number" @onclick="async ()=> { await RenderPage((Page??1)-1); }" href="/wallpaper/@TypeId/@(Page-1)">Previous</a>
+        <a class="page-number" @onclick="async ()=> { await RenderPage((Page??1)+1); }" href="/wallpaper/@TypeId/@(Page+1)">Next</a>
+    </nav>
+    
+</div>
 
 }

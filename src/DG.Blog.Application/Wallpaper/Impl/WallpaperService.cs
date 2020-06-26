@@ -52,7 +52,7 @@ namespace DG.Blog.Application.Wallpaper.Impl
             {
                 var result = new ServiceResult<PagedList<WallpaperDto>>();
 
-                var query = _wallpaperRepository.WhereIf(input.Type > -1, x => x.Type == input.Type)
+                var query = _wallpaperRepository.WhereIf(input.Type != -1, x => x.Type == input.Type)
                                                 .WhereIf(input.Keywords.IsNotNullOrEmpty(), x => x.Title.Contains(input.Keywords))
                                                 .OrderByDescending(x => x.CreateTime);
                 var count = query.Count();

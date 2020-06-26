@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
+
 namespace DG.Blog.Web
 {
     public class Program
@@ -26,6 +27,19 @@ namespace DG.Blog.Web
             });
             builder.Services.AddSingleton(config);
             builder.Services.AddSingleton(typeof(Common));
+            //添加cors 服务 配置跨域处理
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("corshost", builder =>
+                {
+                    builder
+                    .AllowAnyOrigin() //允许任何来源的主机访问
+                    //.WithOrigins(_config.CorsHosts)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                    //.AllowCredentials();//指定处理cookie
+                });
+            });
 
             await builder.Build().RunAsync();
         }

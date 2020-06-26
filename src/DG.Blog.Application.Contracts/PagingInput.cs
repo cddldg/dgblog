@@ -16,7 +16,7 @@ namespace DG.Blog.Application.Contracts
         /// <summary>
         /// 限制条数
         /// </summary>
-        [Range(1, 50)]
+        [Range(1, 100)]
         public int Limit { get; set; } = 20;
     }
 }
