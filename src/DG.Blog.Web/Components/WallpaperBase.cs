@@ -13,10 +13,11 @@ namespace DG.Blog.Web.Components
     {
         [Parameter]
         public int? TypeId { get; set; }
+
         [Parameter]
         public int? Page { get; set; }
-        protected int Limit = 50;
 
+        protected int Limit = 35;
 
         /// <summary>
         /// 总页码
@@ -44,7 +45,6 @@ namespace DG.Blog.Web.Components
             await FetchData();
         }
 
-
         /// <summary>
         /// 请求数据，渲染页面
         /// <returns></returns>
@@ -54,6 +54,7 @@ namespace DG.Blog.Web.Components
             Sources = await Http.GetFromJsonAsync<ServiceResult<PagedList<WallpaperDto>>>($"/wallpaper?Type={TypeId}&Page={Page}&Limit={Limit}");
             CaPage();
         }
+
         /// <summary>
         /// 请求数据，渲染页面
         /// <returns></returns>
@@ -64,6 +65,7 @@ namespace DG.Blog.Web.Components
             Sources = await Http.GetFromJsonAsync<ServiceResult<PagedList<WallpaperDto>>>($"/wallpaper?Type={TypeId}&Page={Page}&Limit={Limit}");
             CaPage();
         }
+
         /// <summary>
         /// 点击页码重新渲染数据
         /// </summary>
@@ -71,14 +73,14 @@ namespace DG.Blog.Web.Components
         /// <returns></returns>
         protected async Task RenderPage(int rPage)
         {
-            if(rPage != Page&&rPage<=TotalPage&&rPage>0)
+            if (rPage != Page && rPage <= TotalPage && rPage > 0)
             {
-                Page = rPage;
                 Types ??= await Http.GetFromJsonAsync<ServiceResult<IEnumerable<EnumResponse>>>($"/wallpaper/types");
-                Sources = await Http.GetFromJsonAsync<ServiceResult<PagedList<WallpaperDto>>>($"/wallpaper?Type={TypeId}&Page={Page}&Limit={Limit}");
+                Sources = await Http.GetFromJsonAsync<ServiceResult<PagedList<WallpaperDto>>>($"/wallpaper?Type={TypeId}&Page={rPage}&Limit={Limit}");
                 CaPage();
             }
         }
+
         private void CaPage()
         {
             Page = Page.HasValue ? Page : 1;

@@ -65,21 +65,21 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 var web = new HtmlWeb();
 
                 var list_task = new List<Task<WallpaperJobItem<HtmlDocument>>>();
-                var proxy = await _redis.ZRandomAsync();
-                var hasProxy = !string.IsNullOrWhiteSpace(proxy);
+                //var proxy = await _redis.ZRandomAsync();
+                //var hasProxy = !string.IsNullOrWhiteSpace(proxy);
                 wallpaperUrls.ForEach(item =>
                 {
                     var task = Task.Run(async () =>
                     {
                         var obj = new HtmlDocument();
-                        if (hasProxy)
-                        {
-                            WebClient wc = new WebClient();
-                            wc.Proxy = new WebProxy(proxy);
-                            obj.LoadHtml(await wc.DownloadStringTaskAsync(item.Result));
-                        }
-                        else
-                            obj = await web.LoadFromWebAsync(item.Result);
+                        //if (hasProxy)
+                        //{
+                        //    WebClient wc = new WebClient();
+                        //    wc.Proxy = new WebProxy(proxy);
+                        //    obj.LoadHtml(await wc.DownloadStringTaskAsync(item.Result));
+                        //}
+                        //else
+                        obj = await web.LoadFromWebAsync(item.Result);
                         return new WallpaperJobItem<HtmlDocument>
                         {
                             Result = obj,
@@ -116,7 +116,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                     await _wallpaperRepository.BulkInsertAsync(wallpapers);
                 }
                 _ = EmailAsync(wallpapers.Count());
-                LoggerHelper.Write($"壁纸数据抓取 hasProxy={hasProxy} {proxy} 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                LoggerHelper.Write($"壁纸数据抓取 hasProxy= 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             }
             catch (Exception ex)
             {

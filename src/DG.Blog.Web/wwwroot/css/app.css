@@ -996,7 +996,6 @@ header label {
     .navbar-mobile {
         display: none;
     }
-    
 }
 
 @media only screen and (min-device-width: 768px) {
@@ -1525,8 +1524,7 @@ button:focus {
     /*grid-auto-rows: minmax(200px, auto);*/
 }
 
-
-.ss {
+.smbox {
     width: 160px;
     height: 348px;
     padding: 1px;
@@ -1538,13 +1536,15 @@ button:focus {
     -o-background-size: cover;
     background-position: center 0;
 }
-    .ss img {
+
+    .smbox img {
         width: auto;
         height: 348px;
         max-width: 100%;
         max-height: 100%;
         border-style: none;
     }
+
 @media screen and (max-width: 768px) {
     .containers {
         display: grid;
@@ -1552,7 +1552,7 @@ button:focus {
         grid-template-rows: auto;
         /*grid-auto-rows: minmax(200px, auto);*/
     }
-} 
+}
 /******顶部paer效果********/
 #top {
     max-width: 1440px;
