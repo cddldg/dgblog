@@ -114,8 +114,9 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 if (wallpapers.Any())
                 {
                     await _wallpaperRepository.BulkInsertAsync(wallpapers);
+                    _ = EmailAsync(wallpapers.Count());
                 }
-                _ = EmailAsync(wallpapers.Count());
+
                 LoggerHelper.Write($"壁纸数据抓取 hasProxy= 本次抓取到{wallpapers.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
             }
             catch (Exception ex)
@@ -128,13 +129,15 @@ namespace DG.Blog.BackgroundJobs.Jobs
         {
             try
             {
+                var builder = new BodyBuilder
+                {
+                    HtmlBody = "本次抓取到{0}条数据，时间:{1}.".FormatWith(count, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+                };
+
                 var message = new MimeMessage
                 {
-                    Subject = "【定时任务】壁纸数据抓取任务推送",
-                    Body = new BodyBuilder
-                    {
-                        HtmlBody = $"本次抓取到{count}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}"
-                    }.ToMessageBody()
+                    Subject = "【定时任务】壁纸数据抓取数据抓取任务推送",
+                    Body = builder.ToMessageBody()
                 };
                 await EmailHelper.SendAsync(message);
                 LoggerHelper.Write($"邮件发送成功 {count}");

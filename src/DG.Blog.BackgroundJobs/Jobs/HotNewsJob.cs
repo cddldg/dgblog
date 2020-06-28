@@ -409,9 +409,8 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 {
                     await _hotNewsRepository.DeleteAsync(x => true);
                     await _hotNewsRepository.BulkInsertAsync(hotNews);
+                    _ = SendingAsync(hotNews.Count());
                 }
-
-                _ = SendingAsync(hotNews.Count());
 
                 LoggerHelper.Write($"每日热点数据抓取  本次抓取到{hotNews.Count()}条数据，时间:{DateTime.Now:yyyy-MM-dd HH:mm:ss}.");
             }
