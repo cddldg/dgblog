@@ -25,5 +25,20 @@ namespace DG.Blog.Application.Blog.Impl
                 return result;
             });
         }
+
+        /// <summary>
+        /// 查询友链列表admin
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ServiceResult<IEnumerable<FriendLinkDto>>> QueryAdminFriendLinksAsync()
+        {
+            var result = new ServiceResult<IEnumerable<FriendLinkDto>>();
+
+            var friendLinks = await _friendLinksRepository.GetListAsync();
+            var list = ObjectMapper.Map<IEnumerable<FriendLink>, IEnumerable<FriendLinkDto>>(friendLinks);
+
+            result.IsSuccess(list);
+            return result;
+        }
     }
 }

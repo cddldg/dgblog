@@ -209,5 +209,18 @@ namespace DG.Blog.HttpApi.Controllers
         {
             return await _blogService.InsertFriendLinkAsync(input);
         }
+
+        /// <summary>
+        /// 查询友链列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("admin/friendlinks")]
+        [Authorize]
+        [ApiExplorerSettings(GroupName = Grouping.GroupName_v2)]
+        public async Task<ServiceResult<IEnumerable<FriendLinkDto>>> QueryAdminFriendLinksAsync()
+        {
+            return await _blogService.QueryAdminFriendLinksAsync();
+        }
     }
 }
