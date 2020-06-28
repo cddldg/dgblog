@@ -20,7 +20,7 @@ namespace DG.Blog.Application.Caching.HotNews.Impl
         /// <returns></returns>
         public async Task<ServiceResult<IEnumerable<EnumResponse>>> GetHotNewsSourceAsync(Func<Task<ServiceResult<IEnumerable<EnumResponse>>>> factory)
         {
-            return await Cache.GetOrAddAsync(KEY_GetHotNewsSource, factory, CacheStrategy.NEVER);
+            return await Cache.GetOrAddAsync(KEY_GetHotNewsSource, factory, CacheStrategy.ONE_DAY);
         }
 
         /// <summary>

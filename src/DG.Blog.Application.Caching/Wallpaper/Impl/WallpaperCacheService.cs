@@ -21,7 +21,7 @@ namespace DG.Blog.Application.Caching.Wallpaper.Impl
         /// <returns></returns>
         public async Task<ServiceResult<IEnumerable<EnumResponse>>> GetWallpaperTypesAsync(Func<Task<ServiceResult<IEnumerable<EnumResponse>>>> factory)
         {
-            return await Cache.GetOrAddAsync(KEY_GetWallpaperTypes, factory, CacheStrategy.NEVER);
+            return await Cache.GetOrAddAsync(KEY_GetWallpaperTypes, factory, CacheStrategy.ONE_DAY);
         }
 
         /// <summary>

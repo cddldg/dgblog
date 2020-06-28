@@ -22,7 +22,7 @@ namespace DG.Blog.Application.Caching.Blog.Impl
         /// <returns></returns>
         public async Task<ServiceResult<string>> GetTagAsync(string name, Func<Task<ServiceResult<string>>> factory)
         {
-            return await Cache.GetOrAddAsync(KEY_GetTag.FormatWith(name), factory, CacheStrategy.ONE_DAY);
+            return await Cache.GetOrAddAsync(KEY_GetTag.FormatWith(name), factory, CacheStrategy.ONE_HOURS);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace DG.Blog.Application.Caching.Blog.Impl
         /// <returns></returns>
         public async Task<ServiceResult<IEnumerable<QueryTagDto>>> QueryTagsAsync(Func<Task<ServiceResult<IEnumerable<QueryTagDto>>>> factory)
         {
-            return await Cache.GetOrAddAsync(KEY_QueryTags, factory, CacheStrategy.ONE_DAY);
+            return await Cache.GetOrAddAsync(KEY_QueryTags, factory, CacheStrategy.ONE_HOURS);
         }
     }
 }
