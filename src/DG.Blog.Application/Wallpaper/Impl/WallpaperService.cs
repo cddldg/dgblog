@@ -34,7 +34,7 @@ namespace DG.Blog.Application.Wallpaper.Impl
             {
                 var result = new ServiceResult<IEnumerable<EnumResponse>>();
 
-                var types = typeof(WallpaperEnum).TryToList();
+                var types = typeof(WallpaperEnum).TryToList().Where(p => p.Value > 0);
                 result.IsSuccess(types);
 
                 return await Task.FromResult(result);
