@@ -17,6 +17,6 @@ namespace DG.Blog.Application.Blog
         /// 查询友链列表admin
         /// </summary>
         /// <returns></returns>
-        Task<ServiceResult<IEnumerable<FriendLinkDto>>> QueryAdminFriendLinksAsync();
+        Task<ServiceResult<IEnumerable<QueryFriendLinkForAdminDto>>> QueryAdminFriendLinksAsync();
     }
 }

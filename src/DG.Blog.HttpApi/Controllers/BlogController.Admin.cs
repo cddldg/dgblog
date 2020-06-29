@@ -218,9 +218,38 @@ namespace DG.Blog.HttpApi.Controllers
         [Route("admin/friendlinks")]
         [Authorize]
         [ApiExplorerSettings(GroupName = Grouping.GroupName_v2)]
-        public async Task<ServiceResult<IEnumerable<FriendLinkDto>>> QueryAdminFriendLinksAsync()
+        public async Task<ServiceResult<IEnumerable<QueryFriendLinkForAdminDto>>> QueryAdminFriendLinksAsync()
         {
             return await _blogService.QueryAdminFriendLinksAsync();
+        }
+
+        /// <summary>
+        /// 删除友链
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Authorize]
+        [Route("friendlink")]
+        [ApiExplorerSettings(GroupName = Grouping.GroupName_v2)]
+        public async Task<ServiceResult> DeleteFriendLinkAsync([Required] int id)
+        {
+            return await _blogService.DeleteFriendLinkAsync(id);
+        }
+
+        /// <summary>
+        /// 更新友链
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Authorize]
+        [Route("friendlink")]
+        [ApiExplorerSettings(GroupName = Grouping.GroupName_v2)]
+        public async Task<ServiceResult> UpdateFriendLinkAsync([Required] int id, [FromBody] EditFriendLinkInput input)
+        {
+            return await _blogService.UpdateFriendLinkAsync(id, input);
         }
     }
 }

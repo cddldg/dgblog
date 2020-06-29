@@ -37,6 +37,49 @@ namespace DG.Blog.BackgroundJobs.Jobs
         {
             try
             {
+                //              <div class="class">
+
+                //      		<a value="1" href="wper_4_19_1_1.html" class="nav_on" title="美女">美女</a>
+
+                //      		<a value="58" href="wper_4_19_58_1.html" title="型男">型男</a>
+
+                //      		<a value="66" href="wper_4_19_66_1.html" title="萌娃">萌娃</a>
+
+                //      		<a value="4" href="wper_4_19_4_1.html" title="情感">情感</a>
+
+                //      		<a value="3" href="wper_4_19_3_1.html" title="风景">风景</a>
+
+                //      		<a value="9" href="wper_4_19_9_1.html" title="动物">动物</a>
+
+                //      		<a value="13" href="wper_4_19_13_1.html" title="植物">植物</a>
+
+                //      		<a value="64" href="wper_4_19_64_1.html" title="美食">美食</a>
+
+                //      		<a value="11" href="wper_4_19_11_1.html" title="影视">影视</a>
+
+                //      		<a value="5" href="wper_4_19_5_1.html" title="动漫">动漫</a>
+
+                //      		<a value="34" href="wper_4_19_34_1.html" title="手绘">手绘</a>
+
+                //      		<a value="65" href="wper_4_19_65_1.html" title="文字">文字</a>
+
+                //      		<a value="2" href="wper_4_19_2_1.html" title="创意">创意</a>
+
+                //      		<a value="10" href="wper_4_19_10_1.html" title="名车">名车</a>
+
+                //      		<a value="14" href="wper_4_19_14_1.html" title="体育">体育</a>
+
+                //      		<a value="17" href="wper_4_19_17_1.html" title="军事">军事</a>
+
+                //      		<a value="15" href="wper_4_19_15_1.html" title="节日">节日</a>
+
+                //      		<a value="12" href="wper_4_19_12_1.html" title="游戏">游戏</a>
+
+                //      		<a value="7" href="wper_4_19_7_1.html" title="苹果">苹果</a>
+
+                //      		<a value="63" href="wper_4_19_63_1.html" title="其它">其它</a>
+
+                //</div>
                 LoggerHelper.Write($"壁纸数据抓取 {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
                 var wallpaperUrls = new List<WallpaperJobItem<string>>
             {
@@ -55,11 +98,11 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_2_1.html",  Type = WallpaperEnum.Creative },
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_10_1.html", Type = WallpaperEnum.Car },
                 new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_14_1.html", Type = WallpaperEnum.PhysicalEducation },
-                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_63_1.html", Type = WallpaperEnum.Military },
-                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_17_1.html", Type = WallpaperEnum.Festival },
-                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_15_1.html", Type = WallpaperEnum.Game },
-                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_12_1.html", Type = WallpaperEnum.Apple },
-                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_7_1.html", Type = WallpaperEnum.Other }
+                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_63_1.html", Type = WallpaperEnum.Other },
+                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_17_1.html", Type = WallpaperEnum.Military },
+                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_15_1.html", Type = WallpaperEnum.Festival },
+                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_12_1.html", Type = WallpaperEnum.Game },
+                new WallpaperJobItem<string> { Result = "https://www.i4.cn/wper_4_19_7_1.html", Type = WallpaperEnum.Apple }
             };
 
                 var web = new HtmlWeb();

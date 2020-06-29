@@ -364,5 +364,47 @@ namespace DG.Blog.Application.Blog.Impl
             result.IsSuccess(ResponseText.INSERT_SUCCESS);
             return result;
         }
+
+        /// <summary>
+        /// 删除友链
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ServiceResult> DeleteFriendLinkAsync(int id)
+        {
+            var result = new ServiceResult();
+
+            var category = await _friendLinksRepository.GetAsync(id);
+            if (null == category)
+            {
+                result.IsFailed(ResponseText.WHAT_NOT_EXIST.FormatWith("Id", id));
+                return result;
+            }
+
+            await _friendLinksRepository.DeleteAsync(id);
+
+            result.IsSuccess(ResponseText.DELETE_SUCCESS);
+            return result;
+        }
+
+        /// <summary>
+        /// 更新友链
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<ServiceResult> UpdateFriendLinkAsync(int id, EditFriendLinkInput input)
+        {
+            var result = new ServiceResult();
+
+            var category = await _friendLinksRepository.GetAsync(id);
+            category.Title = input.Title;
+            category.LinkUrl = input.LinkUrl;
+
+            await _friendLinksRepository.UpdateAsync(category);
+
+            result.IsSuccess(ResponseText.UPDATE_SUCCESS);
+            return result;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using DG.Blog.Domain.Blog;
 using DG.Blog.ToolKits.Base;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DG.Blog.Application.Blog.Impl
@@ -30,12 +31,12 @@ namespace DG.Blog.Application.Blog.Impl
         /// 查询友链列表admin
         /// </summary>
         /// <returns></returns>
-        public async Task<ServiceResult<IEnumerable<FriendLinkDto>>> QueryAdminFriendLinksAsync()
+        public async Task<ServiceResult<IEnumerable<QueryFriendLinkForAdminDto>>> QueryAdminFriendLinksAsync()
         {
-            var result = new ServiceResult<IEnumerable<FriendLinkDto>>();
+            var result = new ServiceResult<IEnumerable<QueryFriendLinkForAdminDto>>();
 
             var friendLinks = await _friendLinksRepository.GetListAsync();
-            var list = ObjectMapper.Map<IEnumerable<FriendLink>, IEnumerable<FriendLinkDto>>(friendLinks);
+            var list = friendLinks.Select(p => new QueryFriendLinkForAdminDto { Id = p.Id, Title = p.Title, LinkUrl = p.LinkUrl });
 
             result.IsSuccess(list);
             return result;
