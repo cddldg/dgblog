@@ -8,6 +8,7 @@ using DG.Blog.ToolKits.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using static DG.Blog.Domain.Shared.DGBlogConsts;
 
 namespace DG.Blog.Application.Wallpaper.Impl
@@ -100,13 +101,14 @@ namespace DG.Blog.Application.Wallpaper.Impl
         public async Task<ServiceResult<string>> GetRandomWallpaperAsync(int type)
         {
             var result = new ServiceResult<string>();
-            var random = await _wallpaperRepository.GetRandomAsync(type);
+            //var random = await _wallpaperRepository.GetRandomAsync(type);
+            var list=await QueryWallpapersAsync(new QueryWallpapersInput { Type = (int)WallpaperEnum.BgImage, Page = 1, Limit = 100000 });
+            var random = list?.Result?.Item?.Randomize(RandomHelper.GetRandom(1, 10))?.FirstOrDefault();
             if (random == null)
             {
                 result.IsFailed(ResponseText.DATA_IS_NONE);
                 return result;
             }
-
             result.IsSuccess(random.Url);
             return result;
         }

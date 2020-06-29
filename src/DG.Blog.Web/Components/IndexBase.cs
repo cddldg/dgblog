@@ -68,11 +68,12 @@ namespace DG.Blog.Web.Components
                     artist = p.Artist,
                     url = p.Url,
                     lrc = p.Lyric,
-                    cover = p.Picture
+                    cover = $"https://images.weserv.nl/?url={p.Picture}"
                 }).ToArray();
                 await Common.AddAplayerAsync(ap);
             }
             return count;
         }
+        
     }
 }

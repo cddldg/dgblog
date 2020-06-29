@@ -39,7 +39,7 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<BgImageJob>();
 
-            RecurringJob.AddOrUpdate("背景图片数据", () => job.RunAsync(), CronType.Hour(40, 1));
+            RecurringJob.AddOrUpdate("背景图片数据", () => job.RunAsync(), CronType.Day(40, 1));
         }
     }
 }
