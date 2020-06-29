@@ -98,6 +98,11 @@ namespace DG.Blog.Application.Wallpaper.Impl
             return result;
         }
 
+        /// <summary>
+        /// 随机取一张大壁纸
+        /// </summary>
+        /// <param name="type">类型已固定</param>
+        /// <returns></returns>
         public async Task<ServiceResult<string>> GetRandomWallpaperAsync(int type)
         {
             var result = new ServiceResult<string>();

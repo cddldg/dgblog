@@ -15,6 +15,7 @@ const myaplayer = new APlayer({
         theme: '#ebd0c2'
     }]
 });
+
 (function (l) {
     if (l.search) {
         var q = {};
@@ -30,6 +31,7 @@ const myaplayer = new APlayer({
             );
         }
     }
+    
 }(window.location));
 
 func = {
@@ -116,8 +118,8 @@ func = {
         var js = await response.text();
         eval(js);
     },
-    addAplayer: function (songs) {//https://aplayer.js.org/#/zh-Hans/?id=%E5%AE%89%E8%A3%85
-        myaplayer.list.add(songs);
+    addAplayer: function (resongs) {//https://aplayer.js.org/#/zh-Hans/?id=%E5%AE%89%E8%A3%85
+        myaplayer.list.add(resongs);
         myaplayer.play();
     }
 };
