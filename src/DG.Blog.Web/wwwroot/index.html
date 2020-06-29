@@ -26,13 +26,8 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <script src="js/aplayer/APlayer.min.js"></script>
     <script>
-        window.onload = function () {
 
-        };
         document.write("<script type='text/javascript' src='js/app.js?v=" + Math.random() + "'></s" + "cript>");
-    </script>
-
-    <script>
         function pageScroll() {
             //document.getElementById('top').scrollIntoView();
             window.scrollBy(0, -100);
@@ -40,10 +35,13 @@
             var sTop = document.documentElement.scrollTop + document.body.scrollTop;
             if (sTop == 0) clearTimeout(scrolldelay);
         }
+    </script>
+
+    <script>
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b3dc4da6daa86edda505eabb56ec8047";
+            hm.src = "https://hm.baidu.com/hm.js?5f23767eabb1368a9fe71f6cc8136600";
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(hm, s);
         })();

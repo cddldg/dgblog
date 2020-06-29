@@ -96,11 +96,13 @@ namespace DG.Blog.Application.Blog.Impl
                                               Title = x.Title,
                                               Url = x.Url,
                                               Year = x.CreationTime.Year,
+                                              Month = x.CreationTime.Month,
                                               CreationTime = x.CreationTime.TryToDateTime()
-                                          }).GroupBy(x => x.Year)
+                                          }).GroupBy(x => new { x.Year, x.Month })
                                           .Select(x => new QueryPostDto
                                           {
-                                              Year = x.Key,
+                                              Year = x.Key.Year,
+                                              Month = x.Key.Month,
                                               Posts = x.ToList()
                                           }).ToList();
 

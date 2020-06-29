@@ -9,6 +9,8 @@ namespace DG.Blog.Web.Response.Blog
         /// </summary>
         public int Year { get; set; }
 
+        public int Month { get; set; }
+
         /// <summary>
         /// Posts
         /// </summary>

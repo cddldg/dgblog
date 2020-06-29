@@ -13,7 +13,7 @@ else
         {
             @foreach (var item in posts.Result.Item)
             {
-                <h3>@item.Year</h3>
+                <h3>@item.Year @item.Month</h3>
                 @foreach (var post in item.Posts)
                 {
                     <article class="archive-item">

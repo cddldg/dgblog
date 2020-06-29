@@ -18,6 +18,11 @@
         public int Year { get; set; }
 
         /// <summary>
+        /// 月份
+        /// </summary>
+        public int Month { get; set; }
+
+        /// <summary>
         /// 创建时间
         /// </summary>
         public string CreationTime { get; set; }
