@@ -118,5 +118,6 @@ func = {
     },
     addAplayer: function (songs) {//https://aplayer.js.org/#/zh-Hans/?id=%E5%AE%89%E8%A3%85
         myaplayer.list.add(songs);
+        myaplayer.play();
     }
 };
