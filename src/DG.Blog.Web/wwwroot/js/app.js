@@ -9,7 +9,7 @@ const myaplayer = new APlayer({
     audio: [{
         name: '直到世界的尽头',
         artist: '上杉升 (うえすぎ しょう)',
-        url: 'http://antiserver.kuwo.cn/anti.s?rid=MUSIC_440433&response=res&format=mp3|aac&type=convert_url&br=128kmp3&agent=iPhone&callback=getlink&jpcallback=getlink.mp3',
+        url: 'http://up_mp4.t57.cn/2016/5/10m/16/203161624459.m4a',
         cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593421609345&di=c66ed619b1b62eae221a813a036ada65&imgtype=0&src=http%3A%2F%2Fqiniuimg.qingmang.mobi%2Fimage%2Forion%2Fccb9bffe4189240c67b0b6af69494cac_1024_768.jpeg',
         lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.lrc',
         theme: '#ebd0c2'
