@@ -11,6 +11,7 @@
     <script>
         document.write("<link href='css/app.css?v=" + Math.random() + "' rel='stylesheet' />");
     </script>
+    <link href="js/aplayer/APlayer.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -20,10 +21,17 @@
     <div class="to-top">
         <a href="javascript:scroll(0,0);" class="paper-btn margin">^</a>
     </div>
+    <div id="aplayer">
+    </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/aplayer/APlayer.min.js"></script>
     <script>
+        window.onload = function () {
+
+        };
         document.write("<script type='text/javascript' src='js/app.js?v=" + Math.random() + "'></s" + "cript>");
     </script>
+
     <script>
         function pageScroll() {
             //document.getElementById('top').scrollIntoView();

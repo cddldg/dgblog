@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "aplayer@1.10.1",
+      "destination": "wwwroot/js/aplayer/",
+      "files": [
+        "APlayer.min.js",
+        "APlayer.min.css"
+      ]
+    }
+  ]
+}

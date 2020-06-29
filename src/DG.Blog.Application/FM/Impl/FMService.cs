@@ -23,6 +23,8 @@ namespace DG.Blog.Application.FM.Impl
             _fmCacheService = fmCacheService;
         }
 
+        #region douban
+
         /// <summary>
         /// 获取专辑分类
         /// </summary>
@@ -201,5 +203,7 @@ namespace DG.Blog.Application.FM.Impl
                 return result;
             });
         }
+
+        #endregion douban
     }
 }

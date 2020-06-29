@@ -1,5 +1,6 @@
 ﻿using DG.Blog.Web.Commons;
 using DG.Blog.Web.Response.Base;
+using DG.Blog.Web.Response.Blog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,33 @@ namespace DG.Blog.Web.Components
         {
             BgImage = (await Http.GetFromJsonAsync<ServiceResult<string>>($"/wallpaper/random?type=0")).Result;
             BgImage = string.IsNullOrWhiteSpace(BgImage) ? $"/images/index/{new Random().Next(1, 9)}.jpg" : BgImage;
+            FMChannel = (await Http.GetFromJsonAsync<ServiceResult<IEnumerable<ChannelDto>>>($"/fm/channels")).Result;
+
+            var count = 0;
+            while (count < 10)
+            {
+                count += await AddSongsAsync();
+            }
+        }
+
+        private async Task<int> AddSongsAsync()
+        {
+            var count = 0;
+            var songs = (await Http.GetFromJsonAsync<ServiceResult<IEnumerable<FMDto>>>($"/fm/random")).Result;
+            if (songs != null && songs.Any())
+            {
+                count = songs.Count();
+                var ap = songs.Select(p => new
+                {
+                    name = p.AlbumTitle,
+                    artist = p.Artist,
+                    url = p.Url,
+                    lrc = p.Lyric,
+                    cover = p.Picture
+                }).ToArray();
+                await Common.AddAplayerAsync(ap);
+            }
+            return count;
         }
     }
 }

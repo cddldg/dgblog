@@ -1,5 +1,20 @@
 ﻿var func = window.func || {}, editor;
-
+const myaplayer = new APlayer({
+    container: document.getElementById('aplayer'),
+    autoplay: true,
+    loop: 'all',
+    order: 'list',
+    lrcType: 1,
+    fixed: true,
+    audio: [{
+        name: '直到世界的尽头',
+        artist: '上杉升 (うえすぎ しょう)',
+        url: 'http://antiserver.kuwo.cn/anti.s?rid=MUSIC_440433&response=res&format=mp3|aac&type=convert_url&br=128kmp3&agent=iPhone&callback=getlink&jpcallback=getlink.mp3',
+        cover: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1593421609345&di=c66ed619b1b62eae221a813a036ada65&imgtype=0&src=http%3A%2F%2Fqiniuimg.qingmang.mobi%2Fimage%2Forion%2Fccb9bffe4189240c67b0b6af69494cac_1024_768.jpeg',
+        lrc: 'https://cn-south-17-aplayer-46154810.oss.dogecdn.com/hikarunara.lrc',
+        theme: '#ebd0c2'
+    }]
+});
 (function (l) {
     if (l.search) {
         var q = {};
@@ -23,7 +38,6 @@ func = {
     },
     setStorage: function (name, value) {
         localStorage.setItem(name, value);
-        console.log('set', name, value);
     },
     getStorage: function (name) {
         return localStorage.getItem(name);
@@ -101,5 +115,8 @@ func = {
         let response = await fetch(url);
         var js = await response.text();
         eval(js);
+    },
+    addAplayer: function (songs) {//https://aplayer.js.org/#/zh-Hans/?id=%E5%AE%89%E8%A3%85
+        myaplayer.list.add(songs);
     }
 };

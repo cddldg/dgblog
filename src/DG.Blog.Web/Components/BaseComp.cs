@@ -1,4 +1,6 @@
 ﻿using DG.Blog.Web.Commons;
+using DG.Blog.Web.Response.Base;
+using DG.Blog.Web.Response.Blog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -11,6 +13,8 @@ namespace DG.Blog.Web.Components
 {
     public class BaseComp : ComponentBase
     {
+        public static IEnumerable<ChannelDto> FMChannel;
+
         /// <summary>
         /// 获得/设置 IJSRuntime 实例
         /// </summary>

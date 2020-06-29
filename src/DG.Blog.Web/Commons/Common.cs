@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DG.Blog.Web.Commons
@@ -104,5 +105,14 @@ namespace DG.Blog.Web.Commons
 
             return await Task.FromResult(uri);
         }
+
+        #region Aplayer
+
+        public async Task AddAplayerAsync(Array array)
+        {
+            await InvokeAsync("window.func.addAplayer", array);
+        }
+
+        #endregion Aplayer
     }
 }

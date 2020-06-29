@@ -57,7 +57,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(maxLength: 20, nullable: false),
-                    LinkUrl = table.Column<string>(maxLength: 100, nullable: false)
+                    LinkUrl = table.Column<string>(maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
