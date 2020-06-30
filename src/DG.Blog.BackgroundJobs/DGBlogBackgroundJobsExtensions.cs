@@ -41,5 +41,12 @@ namespace DG.Blog.BackgroundJobs
 
             RecurringJob.AddOrUpdate("背景图片数据", () => job.RunAsync(), CronType.Day(1, 1));
         }
+
+        public static void UseChickenSoupJob(this ApplicationInitializationContext context)
+        {
+            var job = context.ServiceProvider.GetService<ChickenSoupJob>();
+
+            RecurringJob.AddOrUpdate("剧毒鸡汤数据", () => job.RunAsync(), CronType.Hour(40, 3));
+        }
     }
 }

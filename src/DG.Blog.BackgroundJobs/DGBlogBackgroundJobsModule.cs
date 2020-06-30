@@ -70,6 +70,9 @@ namespace DG.Blog.BackgroundJobs
 
             // 背景图片
             context.UseBgImageJob();
+
+            // 剧毒鸡汤数据
+            context.UseChickenSoupJob();
         }
     }
 }
