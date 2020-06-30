@@ -31,13 +31,22 @@ const myaplayer = new APlayer({
             );
         }
     }
-    
 }(window.location));
 
 func = {
-    changeTitle: function (title) {
+    changeTitle: function (title, keyworks) {
         document.title = title;
+        if (keyworks) {
+            var metas = document.getElementsByTagName("meta");
+            for (var i = 0; i < metas.length; i++) {
+                if (metas[i].name == "keywords") {
+                    metas[i].content += keyworks;
+                    return;
+                }
+            }
+        }
     },
+
     setStorage: function (name, value) {
         localStorage.setItem(name, value);
     },

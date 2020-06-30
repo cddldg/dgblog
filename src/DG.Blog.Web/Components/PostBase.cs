@@ -51,7 +51,7 @@ namespace DG.Blog.Web.Components
         {
             Post = await Http.GetFromJsonAsync<ServiceResult<PostDetailDto>>($"/blog/post?url={url}");
             if (Post.Success)
-                await Common.SetTitleAsync(Post.Result.Title);
+                await Common.SetTitleAsync(Post.Result.Title, string.Join(",", Post.Result.Tags.Select(p => p.TagName)));
             await Common.InvokeAsync("window.func.renderMarkdown");
         }
     }

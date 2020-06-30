@@ -42,9 +42,9 @@ namespace DG.Blog.Web.Commons
             return await _jsRuntime.InvokeAsync<TValue>(identifier, args);
         }
 
-        public async Task SetTitleAsync(string title = null)
+        public async Task SetTitleAsync(string title = null, string keyworks = "")
         {
-            await InvokeAsync("window.func.changeTitle", title == null ? _config.SiteName : $"{_config.SiteName}-{title}");
+            await InvokeAsync("window.func.changeTitle", title == null ? _config.SiteName : $"{_config.SiteName}-{title}", keyworks);
         }
 
         /// <summary>

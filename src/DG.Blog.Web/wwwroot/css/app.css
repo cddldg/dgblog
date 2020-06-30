@@ -355,6 +355,12 @@ input[type="checkbox"], input[type="radio"] {
     /* iOS 4.1- */
 }
 
+@font-face {
+    font-family: 'iconfont'; /* project id 1912658 */
+    src: url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.eot');
+    src: url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.woff2') format('woff2'), url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.woff') format('woff'), url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.ttf') format('truetype'), url('//at.alicdn.com/t/font_1912658_k1q4jhknq8.svg#iconfont') format('svg');
+}
+
 .iconfont {
     font-family: "iconfont" !important;
     font-size: 16px;
@@ -389,6 +395,10 @@ input[type="checkbox"], input[type="radio"] {
 
 .iconnotes:before {
     content: "\e687";
+}
+
+.icon-zhihu:before {
+    content: "\e619";
 }
 
 .header-logo a {
