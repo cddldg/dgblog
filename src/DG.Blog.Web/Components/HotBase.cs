@@ -24,7 +24,7 @@ namespace DG.Blog.Web.Components
         /// </summary>
         protected override async Task OnInitializedAsync()
         {
-            await Common.SetTitleAsync("🚀~~~每日热点~~~🚀");
+            await Common.SetTitleAsync("🚀~~~每日热点~~~🚀", "每日热点,新闻,消息,微信,知乎,博客园");
             await FetchData();
         }
 

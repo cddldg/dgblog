@@ -41,7 +41,7 @@ namespace DG.Blog.Web.Components
         {
             TypeId ??= -1;
             Page ??= 1;
-            await Common.SetTitleAsync("📱~~~手机壁纸~~~📱");
+            await Common.SetTitleAsync("📱~~~手机壁纸~~~📱", "手机壁纸,美女,萌娃,动物,汽车");
             await FetchData();
         }
 

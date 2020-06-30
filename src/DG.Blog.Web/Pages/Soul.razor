@@ -1,0 +1,27 @@
+﻿@page "/soul"
+@inherits SoulBase
+
+@if (Sources == null)
+{
+    <Loading />
+}
+else
+{
+
+    <div class="post-wrap archive">
+
+        @if (Sources.Success && Sources.Result != null)
+        {
+            <div class="container">
+                <div class="soul"><h1>@Sources.Result</h1></div>
+                <div class="soul"><button class="soul-btn" @onclick="async ()=>await FetchData()">再来一碗</button> </div>
+            </div>
+
+        }
+        else
+        {
+            <ErrorTip isApp="true" />
+        }
+    </div>
+
+}

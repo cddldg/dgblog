@@ -40,7 +40,7 @@ func = {
             var metas = document.getElementsByTagName("meta");
             for (var i = 0; i < metas.length; i++) {
                 if (metas[i].name == "keywords") {
-                    metas[i].content += keyworks;
+                    metas[i].content = 'dldg,huangyoum,hym,blog,cd,成都,抵拢倒拐,个人博客,.netcore,C#,' + keyworks;
                     return;
                 }
             }

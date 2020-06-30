@@ -1547,13 +1547,13 @@ button:focus {
     background-position: center 0;
 }
 
-    .smbox img {
-        width: auto;
-        height: 348px;
-        max-width: 100%;
-        max-height: 100%;
-        border-style: none;
-    }
+.jtimg {
+    width: auto;
+    height: 348px;
+    max-width: 100%;
+    max-height: 100%;
+    border-style: none;
+}
 
 @media screen and (max-width: 768px) {
     .containers {
