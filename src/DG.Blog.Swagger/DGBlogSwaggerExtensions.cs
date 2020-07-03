@@ -21,7 +21,7 @@ namespace DG.Blog.Swagger
         /// <summary>
         /// Swagger描述信息
         /// </summary>
-        private static readonly string description = @"<b>Blog</b>：<a target=""_blank"" href=""http://dldg.ink"">http://dldg.ink</a> <b>GitHub</b>：<a target=""_blank"" href=""https://github.com/cddldg"">https://github.com/cddldg</a> <b>Hangfire</b>：<a target=""_blank"" href=""/hangfire"">任务调度中心</a> <code>Powered by .NET Core 3.1 on Linux</code>";
+        private static readonly string description = @"<b>Blog</b>：<a target=""_blank"" href=""https://dldg.ink/posts"">https://dldg.ink/posts</a> <b>GitHub</b>：<a target=""_blank"" href=""https://github.com/cddldg"">https://github.com/cddldg</a> <b>Hangfire</b>：<a target=""_blank"" href=""/hangfire"">任务调度中心</a> <code>Powered by .NET Core 3.1 on Linux</code>";
 
         /// <summary>
         /// Swagger分组信息，将进行遍历使用

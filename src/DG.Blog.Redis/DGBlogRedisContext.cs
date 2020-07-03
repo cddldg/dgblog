@@ -45,6 +45,7 @@ namespace DG.Blog.Redis
             return Execute(() =>
             {
                 var instance = GetInstance();
+
                 return instance.ZCardAsync(key);
             });
         }
