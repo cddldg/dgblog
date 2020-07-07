@@ -15,7 +15,9 @@
         <li>
             <NavLink class="paper-btn margin" href="/soul">🐔~~~剧毒鸡汤~~~🐔</NavLink>
         </li>
-
+        <li>
+            <a href="javascript:;" class="paper-btn margin" @onclick="async ()=>await AddSongsAsync()">🎵~~~换一批歌~~~🎵</a>
+        </li>
         <li>
             <NavLink class="paper-btn margin" href="/friendlinks">💕~~~友情链接~~~💕</NavLink>
         </li>
@@ -25,5 +27,24 @@
     protected override async Task OnInitializedAsync()
     {
         await Common.SetTitleAsync();
+    }
+    private async Task<int> AddSongsAsync()
+    {
+        var count = 0;
+        var songs = (await Http.GetFromJsonAsync<ServiceResult<IEnumerable<FMDto>>>($"/fm/random")).Result;
+        if (songs != null && songs.Any())
+        {
+            count = songs.Count();
+            var ap = songs.Select(p => new
+            {
+                name = p.AlbumTitle,
+                artist = p.Artist,
+                url = p.Url,
+                lrc = p.Lyric,
+                cover = $"https://images.weserv.nl/?url={p.Picture}"
+            }).ToArray();
+            await Common.AddAplayerAsync(ap, true);
+        }
+        return count;
     }
 }

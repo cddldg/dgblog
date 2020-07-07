@@ -108,9 +108,9 @@ namespace DG.Blog.Web.Commons
 
         #region Aplayer
 
-        public async Task AddAplayerAsync(Array array)
+        public async Task AddAplayerAsync(Array array, bool cls = false, string msg = "")
         {
-            await InvokeAsync("window.func.addAplayer", array);
+            await InvokeAsync("window.func.addAplayer", array, cls, msg);
         }
 
         #endregion Aplayer

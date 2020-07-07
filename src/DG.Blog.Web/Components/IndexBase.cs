@@ -70,10 +70,9 @@ namespace DG.Blog.Web.Components
                     lrc = p.Lyric,
                     cover = $"https://images.weserv.nl/?url={p.Picture}"
                 }).ToArray();
-                await Common.AddAplayerAsync(ap);
+                await Common.AddAplayerAsync(ap, msg: "换歌？点[趣]");
             }
             return count;
         }
-        
     }
 }
