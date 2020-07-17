@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
+
   <Import Project="..\..\common.props" />
-  
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
@@ -13,5 +13,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DG.Blog.Domain.Shared\DG.Blog.Domain.Shared.csproj" />
   </ItemGroup>
-
 </Project>
