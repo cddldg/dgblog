@@ -253,5 +253,16 @@ namespace DG.Blog.Domain.Configurations
                 }
             }
         }
+
+        /// <summary>
+        /// WeiXin
+        /// </summary>
+        public static class WeiXin
+        {
+            public static string Token => _config["WeiXin:Token"];
+            public static string AppId => _config["WeiXin:AppId"];
+            public static string AppSecret => _config["WeiXin:AppSecret"];
+            public static string OAuthRedirectUrl => _config["WeiXin:OAuthRedirectUrl"];
+        }
     }
 }
