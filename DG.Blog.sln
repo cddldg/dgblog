@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Redis", "src\DG.Blo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Web", "src\DG.Blog.Web\DG.Blog.Web.csproj", "{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.BLog.WeChat", "src\DG.BLog.WeChat\DG.BLog.WeChat.csproj", "{BDEE8D82-96F8-49BC-A09A-2A34F3C18B27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDEE8D82-96F8-49BC-A09A-2A34F3C18B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDEE8D82-96F8-49BC-A09A-2A34F3C18B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDEE8D82-96F8-49BC-A09A-2A34F3C18B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDEE8D82-96F8-49BC-A09A-2A34F3C18B27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

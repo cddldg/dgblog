@@ -31,12 +31,17 @@ namespace DG.Blog.Domain.Shared
             /// JWT授权接口组
             /// </summary>
             public const string GroupName_v4 = "v4";
+
+            /// <summary>
+            /// 微信接口组
+            /// </summary>
+            public const string GroupName_v5 = "v5";
         }
 
         /// <summary>
         /// 语音合成欢迎词
         /// </summary>
-        public const string GreetWord = "欢迎来到我的个人博客，我是阿星Plus。今日语录：{0}，{1}";
+        public const string GreetWord = "欢迎来到我的个人博客。今日语录：{0}，{1}";
 
         /// <summary>
         /// 数据库表前缀
