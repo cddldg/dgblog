@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DG.Blog.Domain;
 using System;
-using Volo.Abp;
+using System.Collections.Generic;
+using System.Text;
 using Volo.Abp.Modularity;
 
 namespace DG.BLog.WeChat
 {
+    [DependsOn(typeof(DGBlogDomainModule))]
     public class DGBlogWeChatModule : AbpModule
     {
-        public override void ConfigureServices(ServiceConfigurationContext context)
-        {
-            context.Services.AddSingleton(null);
-        }
     }
 }

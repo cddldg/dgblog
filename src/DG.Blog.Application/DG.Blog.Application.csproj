@@ -17,5 +17,6 @@
     <ProjectReference Include="..\DG.Blog.Application.Caching\DG.Blog.Application.Caching.csproj" />
     <ProjectReference Include="..\DG.Blog.Application.Contracts\DG.Blog.Application.Contracts.csproj" />
     <ProjectReference Include="..\DG.Blog.Domain.Shared\DG.Blog.Domain.Shared.csproj" />
+    <ProjectReference Include="..\DG.BLog.WeChat\DG.BLog.WeChat.csproj" />
   </ItemGroup>
 </Project>

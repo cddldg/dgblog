@@ -1,4 +1,5 @@
 using DG.Blog.Application.Caching;
+using DG.BLog.WeChat;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -8,7 +9,8 @@ namespace DG.Blog.Application
     [DependsOn(
         typeof(AbpIdentityApplicationModule),
         typeof(AbpAutoMapperModule),
-        typeof(DGBlogApplicationCachingModule)
+        typeof(DGBlogApplicationCachingModule),
+        typeof(DGBlogWeChatModule)
         )]
     public class DGBlogApplicationModule : AbpModule
     {

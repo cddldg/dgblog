@@ -263,6 +263,7 @@ namespace DG.Blog.Domain.Configurations
             public static string AppId => _config["WeiXin:AppId"];
             public static string AppSecret => _config["WeiXin:AppSecret"];
             public static string OAuthRedirectUrl => _config["WeiXin:OAuthRedirectUrl"];
+            public static string EncodingAESKey => _config["WeiXin:EncodingAESKey"];
         }
     }
 }
