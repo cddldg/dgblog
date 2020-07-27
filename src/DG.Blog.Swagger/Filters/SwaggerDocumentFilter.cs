@@ -90,7 +90,7 @@ namespace DG.Blog.Swagger.Filters
             // 筛选一下tags
             swaggerDoc.Tags = tags.Where(x => !controllers.Contains(x.Name)).OrderBy(x => x.Name).ToList();
 
-            #endregion
+            #endregion 实现添加自定义描述时过滤不属于同一个分组的API
         }
     }
 }

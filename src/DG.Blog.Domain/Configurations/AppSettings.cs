@@ -254,16 +254,36 @@ namespace DG.Blog.Domain.Configurations
             }
         }
 
-        /// <summary>
-        /// WeiXin
-        /// </summary>
-        public static class WeiXin
+        public static class WeChatOptions
         {
-            public static string Token => _config["WeiXin:Token"];
-            public static string AppId => _config["WeiXin:AppId"];
-            public static string AppSecret => _config["WeiXin:AppSecret"];
-            public static string OAuthRedirectUrl => _config["WeiXin:OAuthRedirectUrl"];
-            public static string EncodingAESKey => _config["WeiXin:EncodingAESKey"];
+            /// <summary>
+            /// 消息加密的 Token。
+            /// </summary>
+            public static string Token => _config["WeChatOptions:Token"];
+
+            /// <summary>
+            /// 微信公众号的 AppId。
+            /// </summary>
+            public static string AppId => _config["WeChatOptions:AppId"];
+
+            /// <summary>
+            /// 微信公众号的 API Secret。
+            /// </summary>
+            public static string AppSecret => _config["WeChatOptions:AppSecret"];
+
+            public static string EncodingAesKey => _config["WeChatOptions:EncodingAesKey"];
+
+            /// <summary>
+            /// 微信网页授权成功后，重定向的 URL。
+            /// </summary>
+            public static string OAuthRedirectUrl => _config["WeChatOptions:OAuthRedirectUrl"];
+
+            //
+            // 摘要:
+            //     发送者用户名（OpenId）
+            public static string OpenId { get; set; }
+
+            public static string Msg_Signature { get; set; }
         }
     }
 }

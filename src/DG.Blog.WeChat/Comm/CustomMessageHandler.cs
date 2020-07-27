@@ -1,24 +1,24 @@
 ﻿using DG.Blog.Domain.Configurations;
-using DG.BLog.WeChat;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
-using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.NeuChar.Helpers;
 using Senparc.Weixin;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.MessageHandlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DG.Blog.WeChat
 {
@@ -26,10 +26,10 @@ namespace DG.Blog.WeChat
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<DefaultMpMessageContext>
+    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
     {
-        private string AppId = AppSettings.WeiXin.AppId;
-        private string AppSecret = AppSettings.WeiXin.AppSecret;
+        private string appId = AppSettings.WeChatOptions.AppId;
+        private string appSecret = AppSettings.WeChatOptions.AppSecret;
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
@@ -40,10 +40,10 @@ namespace DG.Blog.WeChat
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount)
+        public static Func<XDocument, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount)
                         => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */);
 
-        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+        public CustomMessageHandler(XDocument inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = true)
             : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
@@ -54,19 +54,19 @@ namespace DG.Blog.WeChat
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {
-                AppId = postModel.AppId;//通过第三方开放平台发送过来的请求
+                appId = postModel.AppId;//通过第三方开放平台发送过来的请求
             }
 
-            //在指定条件下，不使用消息去重
-            base.OmitRepeatedMessageFunc = requestMessage =>
-            {
-                var textRequestMessage = requestMessage as RequestMessageText;
-                if (textRequestMessage != null && textRequestMessage.Content == "容错")
-                {
-                    return false;
-                }
-                return true;
-            };
+            ////在指定条件下，不使用消息去重
+            //base.OmitRepeatedMessageFunc = requestMessage =>
+            //{
+            //    var textRequestMessage = requestMessage as RequestMessageText;
+            //    if (textRequestMessage != null && textRequestMessage.Content == "容错")
+            //    {
+            //        return false;
+            //    }
+            //    return true;
+            //};
         }
 
         /// <summary>
@@ -76,8 +76,6 @@ namespace DG.Blog.WeChat
         /// <returns></returns>
         public override async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
-            //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
-
             var defaultResponseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
             var requestHandler = await requestMessage.StartHandler()
@@ -91,7 +89,25 @@ namespace DG.Blog.WeChat
 <a href=""https://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：https://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
                     return defaultResponseMessage;
                 })
-
+                //匹配任一关键字
+                .Keywords(new[] { "测试", "退出" }, () =>
+                {
+                    if (defaultResponseMessage.Content == "测试")
+                    {
+                        //进入APP测试
+                        defaultResponseMessage.Content = "您已经进入【盛派网络小助手】的测试程序，请发送任意信息进行测试。发送文字【退出】退出测试对话。10分钟内无任何交互将自动退出应用对话状态。";
+                    }
+                    else
+                    {
+                        //退出APP测试
+                        defaultResponseMessage.Content = "您已经退出【盛派网络小助手】的测试程序。";
+                    }
+                    return defaultResponseMessage;
+                })
+                .Keyword("AsyncTest", () =>
+                {
+                    return defaultResponseMessage;
+                })
                 .Keyword("OPEN", () =>
                 {
                     var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
@@ -107,15 +123,42 @@ namespace DG.Blog.WeChat
                     });
                     return openResponseMessage;
                 })
-
+                .Keyword("错误", () =>
+                {
+                    var errorResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                    //因为没有设置errorResponseMessage.Content，所以这小消息将无法正确返回。
+                    return errorResponseMessage;
+                })
+                .Keyword("容错", () =>
+                {
+                    Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                    var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                    faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
+                        SystemTime.Now.Ticks);
+                    return faultTolerantResponseMessage;
+                })
+                .Keyword("TM", () =>
+                {
+                    var openId = requestMessage.FromUserName;
+                    var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
+                    TemplateMessageCollection[checkCode] = openId;
+                    defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：https://sdk.weixin.senparc.com/AsyncMethods", checkCode);
+                    return defaultResponseMessage;
+                })
                 .Keyword("OPENID", () =>
                 {
                     var openId = requestMessage.FromUserName;//获取OpenId
-                    var userInfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(AppId, openId, Language.zh_CN);
+                    var userInfo = Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
 
                     defaultResponseMessage.Content = string.Format(
                         "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
                         requestMessage.FromUserName, userInfo.nickname, (WeixinSex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
+                    return defaultResponseMessage;
+                })
+                .Keyword("EX", () =>
+                {
+                    var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
+                    defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + SystemTime.Now.ToString();
                     return defaultResponseMessage;
                 })
                 .Keyword("MUTE", () => //不回复任何消息
@@ -133,6 +176,11 @@ namespace DG.Blog.WeChat
 
                     //方案四：
                     return null;//在 Action 中结合使用 return new FixWeixinBugWeixinResult(messageHandler);
+                })
+                .Keyword("JSSDK", () =>
+                {
+                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
+                    return defaultResponseMessage;
                 })
 
                 //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
@@ -278,7 +326,7 @@ namespace DG.Blog.WeChat
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(AppId, UploadMediaFileType.image,
+            var uploadResult = Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                          ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
@@ -291,7 +339,7 @@ namespace DG.Blog.WeChat
             //推送一条客服消息
             try
             {
-                CustomApi.SendText(AppId, OpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
+                CustomApi.SendText(appId, OpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
             }
             catch
             {
@@ -316,9 +364,9 @@ namespace DG.Blog.WeChat
             {
                 //上传素材
                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
-                var file = await MediaApi.GetAsync(AppId, requestMessage.MediaId, dir);
-                var uploadResult = await MediaApi.UploadTemporaryMediaAsync(AppId, UploadMediaFileType.video, file, 50000);
-                await CustomApi.SendVideoAsync(AppId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
+                var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
+                var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
+                await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
             }).ContinueWith(async task =>
             {
                 if (task.Exception != null)
@@ -330,7 +378,7 @@ namespace DG.Blog.WeChat
                                task.Exception.InnerException != null
                                    ? task.Exception.InnerException.Message
                                    : null);
-                    await CustomApi.SendTextAsync(AppId, base.WeixinOpenId, msg);
+                    await CustomApi.SendTextAsync(appId, base.WeixinOpenId, msg);
                 }
             });
 
@@ -387,7 +435,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
             */
 
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "若无相欠，怎会遇见。";
+            responseMessage.Content = "这条消息来自DefaultResponseMessage。";
             return responseMessage;
         }
 
@@ -402,7 +450,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "未知消息类型：" + msgType;
 
-            //WeixinTrace.SendCustomLog("未知请求消息类型", requestMessage.RequestDocument.ToString());//记录到日志中
+            WeixinTrace.SendCustomLog("未知请求消息类型", requestMessage.RequestDocument.ToString());//记录到日志中
 
             return responseMessage;
         }

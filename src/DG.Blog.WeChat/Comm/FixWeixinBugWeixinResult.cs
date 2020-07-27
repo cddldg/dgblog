@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DG.BLog.WeChat
+namespace DG.Blog.WeChat
 {
     /// <summary>
     /// 修复微信换行 bug
     /// </summary>
     public class FixWeixinBugWeixinResult : ContentResult
     {
+        //private string _content;
         protected IMessageHandlerDocument _messageHandlerDocument;
 
         /// <summary>
@@ -24,6 +25,7 @@ namespace DG.BLog.WeChat
 
         public FixWeixinBugWeixinResult(string content)
         {
+            //_content = content;
             base.Content = content;
         }
 

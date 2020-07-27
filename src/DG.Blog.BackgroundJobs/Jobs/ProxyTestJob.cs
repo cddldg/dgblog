@@ -74,7 +74,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         await _redis.ZDecreaseAsync(item);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     await _redis.ZDecreaseAsync(item);
                 }

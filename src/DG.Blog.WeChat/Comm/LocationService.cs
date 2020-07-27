@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DG.BLog.WeChat
+namespace DG.Blog.WeChat
 {
     public class LocationService
     {
@@ -72,10 +72,10 @@ namespace DG.BLog.WeChat
 
             responseMessage.Articles.Add(new Article()
             {
-                Title = "微信公众平台SDK 官网链接",
-                Description = "Senparc.Weixin.MK SDK地址",
-                PicUrl = "https://sdk.weixin.senparc.com/images/logo.jpg",
-                Url = "https://sdk.weixin.senparc.com"
+                Title = "抵拢倒拐",
+                Description = "博客地址",
+                PicUrl = "https://dldg.ink/images/avatar.jpg",
+                Url = "https://dldg.ink/"
             });
 
             return responseMessage;

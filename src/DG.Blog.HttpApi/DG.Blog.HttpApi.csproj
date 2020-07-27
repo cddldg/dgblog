@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -15,6 +15,6 @@
 
     <ProjectReference Include="..\DG.Blog.Application\DG.Blog.Application.csproj" />
 
-    <ProjectReference Include="..\DG.BLog.WeChat\DG.BLog.WeChat.csproj" />
+    <ProjectReference Include="..\DG.Blog.WeChat\DG.Blog.WeChat.csproj" />
   </ItemGroup>
 </Project>
