@@ -41,16 +41,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Redis", "src\DG.Blo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Web", "src\DG.Blog.Web\DG.Blog.Web.csproj", "{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WeChat", "WeChat", "{CB90E977-F784-4639-81D7-1DEE52DFFFDA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Abp.WeChat.MP", "src\WeChat\DG.Abp.WeChat.MP\DG.Abp.WeChat.MP.csproj", "{999F5F7C-B59C-417F-8F00-209320356A9A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Abp.WeChat.Infrastructure", "src\WeChat\DG.Abp.WeChat.Infrastructure\DG.Abp.WeChat.Infrastructure.csproj", "{E64DE204-D6F2-4F95-938A-7C05AC0BAC90}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Abp.WeChat.MP.HttpApi", "src\WeChat\DG.Abp.WeChat.MP.HttpApi\DG.Abp.WeChat.MP.HttpApi.csproj", "{E9168F0C-2BF0-4092-A10C-A16D86A8E216}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.Blog.WeChat", "src\DG.Blog.WeChat\DG.Blog.WeChat.csproj", "{15185745-8974-44B6-878D-5D6CA0F624DB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,30 +103,9 @@ Global
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}.Release|Any CPU.Build.0 = Release|Any CPU
-		{999F5F7C-B59C-417F-8F00-209320356A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{999F5F7C-B59C-417F-8F00-209320356A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{999F5F7C-B59C-417F-8F00-209320356A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{999F5F7C-B59C-417F-8F00-209320356A9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E64DE204-D6F2-4F95-938A-7C05AC0BAC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E64DE204-D6F2-4F95-938A-7C05AC0BAC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E64DE204-D6F2-4F95-938A-7C05AC0BAC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E64DE204-D6F2-4F95-938A-7C05AC0BAC90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9168F0C-2BF0-4092-A10C-A16D86A8E216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9168F0C-2BF0-4092-A10C-A16D86A8E216}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9168F0C-2BF0-4092-A10C-A16D86A8E216}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9168F0C-2BF0-4092-A10C-A16D86A8E216}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15185745-8974-44B6-878D-5D6CA0F624DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15185745-8974-44B6-878D-5D6CA0F624DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15185745-8974-44B6-878D-5D6CA0F624DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15185745-8974-44B6-878D-5D6CA0F624DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{999F5F7C-B59C-417F-8F00-209320356A9A} = {CB90E977-F784-4639-81D7-1DEE52DFFFDA}
-		{E64DE204-D6F2-4F95-938A-7C05AC0BAC90} = {CB90E977-F784-4639-81D7-1DEE52DFFFDA}
-		{E9168F0C-2BF0-4092-A10C-A16D86A8E216} = {CB90E977-F784-4639-81D7-1DEE52DFFFDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5220600-6054-42AC-B8B0-BD41B4EBF692}

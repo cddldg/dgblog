@@ -76,17 +76,6 @@ namespace DG.Blog.Swagger
                     Title = "黄师傅 - JWT授权接口",
                     Description = description
                 }
-            },
-            new SwaggerApiInfo
-            {
-                UrlPrefix = "v5",
-                Name = "微信接口",
-                OpenApiInfo = new OpenApiInfo
-                {
-                    Version = version,
-                    Title = "黄师傅 - 微信接口",
-                    Description = description
-                }
             }
         };
 
