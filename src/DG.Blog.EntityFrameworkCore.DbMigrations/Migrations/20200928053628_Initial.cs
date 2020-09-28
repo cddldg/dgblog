@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
 {
@@ -29,7 +28,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CategoryName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },
@@ -55,9 +54,9 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 20, nullable: false),
-                    LinkUrl = table.Column<string>(maxLength: 300, nullable: false)
+                    LinkUrl = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,7 +99,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     PostId = table.Column<int>(nullable: false),
                     TagId = table.Column<int>(nullable: false)
                 },
@@ -114,7 +113,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Author = table.Column<string>(maxLength: 10, nullable: true),
                     Url = table.Column<string>(maxLength: 100, nullable: false),
@@ -149,7 +148,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     TagName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },

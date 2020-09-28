@@ -41,6 +41,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Redis", "src\DG.Blo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DG.Blog.Web", "src\DG.Blog.Web\DG.Blog.Web.csproj", "{BA506E5E-F96C-44CE-A1C1-EE7312AF5485}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{D6EF94CA-DB81-4573-B521-8DC251A359CF}"
+	ProjectSection(SolutionItems) = preProject
+		data\blog.db = data\blog.db
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
