@@ -1,12 +1,15 @@
 ﻿using Hangfire;
 using Hangfire.Dashboard.BasicAuthorization;
 using Hangfire.PostgreSql;
+using Hangfire.MySql.Core;
+using Hangfire.SQLite.Core;
 using DG.Blog.Domain.Configurations;
 using DG.Blog.Domain.Shared;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Modularity;
 using DG.Blog.Redis;
+using Hangfire.SQLite;
 
 namespace DG.Blog.BackgroundJobs
 {
@@ -20,12 +23,40 @@ namespace DG.Blog.BackgroundJobs
         {
             context.Services.AddHangfire(config =>
             {
-                config.UseStorage(
-                    new PostgreSqlStorage(AppSettings.ConnectionStrings,
-                    new PostgreSqlStorageOptions
-                    {
-                        SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
-                    }));
+                //和主程序用同一个数据库可直接使用AppSettings.EnableDb判断
+                switch (AppSettings.EnableDb)
+                {
+                    case "MySQL":
+                        config.UseStorage(
+                        new MySqlStorage(AppSettings.ConnectionStrings,
+                        new MySqlStorageOptions
+                        {
+                            TablePrefix = DGBlogConsts.DbTablePrefix + "Hangfire"
+                        }));
+                        break;
+
+                    case "SqlServer":
+
+                        break;
+
+                    case "PostgreSql":
+                        config.UseStorage(
+                        new PostgreSqlStorage(AppSettings.ConnectionStrings,
+                        new PostgreSqlStorageOptions
+                        {
+                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                        }));
+                        break;
+
+                    case "Sqlite":
+                        config.UseStorage(
+                        new SQLiteStorage(AppSettings.ConnectionStrings,
+                        new SQLiteStorageOptions
+                        {
+                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                        }));
+                        break;
+                }
             });
         }
 
