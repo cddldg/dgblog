@@ -2,14 +2,14 @@
 using Hangfire.Dashboard.BasicAuthorization;
 using Hangfire.PostgreSql;
 using Hangfire.MySql.Core;
-using Hangfire.SQLite.Core;
+using Hangfire.SQLite;
+using Hangfire.SqlServer;
 using DG.Blog.Domain.Configurations;
 using DG.Blog.Domain.Shared;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Modularity;
 using DG.Blog.Redis;
-using Hangfire.SQLite;
 
 namespace DG.Blog.BackgroundJobs
 {
@@ -36,7 +36,12 @@ namespace DG.Blog.BackgroundJobs
                         break;
 
                     case "SqlServer":
-
+                        config.UseStorage(
+                        new SqlServerStorage(AppSettings.ConnectionStrings,
+                        new SqlServerStorageOptions
+                        {
+                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                        }));
                         break;
 
                     case "PostgreSql":
