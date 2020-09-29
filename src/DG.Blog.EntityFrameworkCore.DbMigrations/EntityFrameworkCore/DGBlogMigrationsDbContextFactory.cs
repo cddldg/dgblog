@@ -12,9 +12,9 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.EntityFrameworkCore
             var configuration = BuildConfiguration();
 
             var builder = new DbContextOptionsBuilder<DGBlogMigrationsDbContext>()
-                //.UseMySql(configuration.GetConnectionString("Default"));
+                .UseMySql(configuration.GetConnectionString("MySql"))
                 //.UseNpgsql(configuration.GetConnectionString("Sqlite"))
-                .UseSqlite(configuration.GetConnectionString("Sqlite"))
+                //.UseSqlite(configuration.GetConnectionString("Sqlite"))
                 ;
 
             return new DGBlogMigrationsDbContext(builder.Options);

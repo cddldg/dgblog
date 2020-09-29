@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
@@ -28,7 +29,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },
@@ -54,7 +55,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 20, nullable: false),
                     LinkUrl = table.Column<string>(maxLength: 100, nullable: false)
                 },
@@ -99,7 +100,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PostId = table.Column<int>(nullable: false),
                     TagId = table.Column<int>(nullable: false)
                 },
@@ -113,7 +114,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Author = table.Column<string>(maxLength: 10, nullable: true),
                     Url = table.Column<string>(maxLength: 100, nullable: false),
@@ -148,7 +149,7 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TagName = table.Column<string>(maxLength: 50, nullable: false),
                     DisplayName = table.Column<string>(maxLength: 50, nullable: false)
                 },

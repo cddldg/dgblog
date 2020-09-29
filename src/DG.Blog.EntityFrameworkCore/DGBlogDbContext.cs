@@ -10,7 +10,7 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace DG.Blog.EntityFrameworkCore
 {
-    [ConnectionStringName("PostgreSql")]
+    [ConnectionStringName("MySql")]
     public class DGBlogDbContext : AbpDbContext<DGBlogDbContext>
     {
         public DbSet<Post> Posts { get; set; }
