@@ -26,7 +26,7 @@ namespace DG.Blog.BackgroundJobs
                 //和主程序用同一个数据库可直接使用AppSettings.EnableDb判断
                 switch (AppSettings.EnableDb)
                 {
-                    case "MySQL":
+                    case "MySql":
                         config.UseStorage(
                         new MySqlStorage(AppSettings.ConnectionStrings,
                         new MySqlStorageOptions

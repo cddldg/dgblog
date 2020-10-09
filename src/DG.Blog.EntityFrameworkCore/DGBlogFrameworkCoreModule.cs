@@ -32,7 +32,7 @@ namespace DG.Blog.EntityFrameworkCore
             {
                 switch (AppSettings.EnableDb)
                 {
-                    case "MySQL":
+                    case "MySql":
                         options.UseMySQL();
                         break;
 

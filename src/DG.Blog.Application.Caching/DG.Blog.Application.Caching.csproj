@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Caching.CSRedis" Version="3.6.3" />
     <PackageReference Include="CSRedisCore" Version="3.6.3" />
-    <PackageReference Include="Volo.Abp.Caching" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.Caching" Version="3.2.1" />
 
     <ProjectReference Include="..\DG.Blog.Application.Contracts\DG.Blog.Application.Contracts.csproj" />
     <ProjectReference Include="..\DG.Blog.Domain\DG.Blog.Domain.csproj" />
