@@ -18,7 +18,7 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<HotNewsJob>();
 
-            RecurringJob.AddOrUpdate("每日热点抓取", () => job.RunAsync(), CronType.Hour(10, 1));
+            RecurringJob.AddOrUpdate("每日热点抓取", () => job.RunAsync(), CronType.Minute(10));
         }
 
         public static void UseProxysJob(this ApplicationInitializationContext context)
