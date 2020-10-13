@@ -51,7 +51,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                 new HotNewsJobItem<string> { Result = "https://www.cnblogs.com", Source = HotNewsEnum.cnblogs },
                 new HotNewsJobItem<string> { Result = "https://www.v2ex.com/?tab=hot", Source = HotNewsEnum.v2ex },
                 new HotNewsJobItem<string> { Result = "https://segmentfault.com/hottest", Source = HotNewsEnum.segmentfault },
-                new HotNewsJobItem<string> { Result = "https://web-api.juejin.im/query", Source = HotNewsEnum.juejin },
+                new HotNewsJobItem<string> { Result = "https://apinew.juejin.im/recommend_api/v1/article/////recommend_all_feed", Source = HotNewsEnum.juejin },
                 new HotNewsJobItem<string> { Result = "https://weixin.sogou.com", Source = HotNewsEnum.weixin },
                 new HotNewsJobItem<string> { Result = "https://www.douban.com/group/explore", Source = HotNewsEnum.douban },
                 new HotNewsJobItem<string> { Result = "https://www.ithome.com", Source = HotNewsEnum.ithome },
@@ -83,7 +83,8 @@ namespace DG.Blog.BackgroundJobs.Jobs
                                 using var client = _httpClient.CreateClient();
                                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.14 Safari/537.36 Edg/83.0.478.13");
                                 client.DefaultRequestHeaders.Add("X-Agent", "Juejin/Web");
-                                var data = "{\"extensions\":{\"query\":{ \"id\":\"21207e9ddb1de777adeaca7a2fb38030\"}},\"operationName\":\"\",\"query\":\"\",\"variables\":{ \"first\":20,\"after\":\"\",\"order\":\"THREE_DAYS_HOTTEST\"}}";
+
+                                var data = "{\"id_type\":2,\"client_type\":2608,\"sort_type\":200,\"cursor\":\"0\",\"limit\":50}";
                                 var buffer = data.SerializeUtf8();
                                 var byteContent = new ByteArrayContent(buffer);
                                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -125,8 +126,8 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         // 博客园
                         if (item.Source == HotNewsEnum.cnblogs)
                         {
-                            var nodes = ((HtmlDocument)item.Result).DocumentNode.SelectNodes("//div[@class='post_item_body']/h3/a").ToList();
-                            nodes.ForEach(x =>
+                            var nodes = ((HtmlDocument)item.Result).DocumentNode.SelectNodes("//div[@class='post-item-text']/a")?.ToList();
+                            nodes?.ForEach(x =>
                             {
                                 hotNews.Add(new HotNews
                                 {
@@ -174,16 +175,17 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         if (item.Source == HotNewsEnum.juejin)
                         {
                             var obj = JObject.Parse((string)item.Result);
-                            var nodes = obj["data"]["articleFeed"]["items"]["edges"];
+                            var nodes = obj["data"];
                             foreach (var node in nodes)
                             {
-                                hotNews.Add(new HotNews
-                                {
-                                    Title = node["node"]["title"].ToString(),
-                                    Url = node["node"]["originalUrl"].ToString(),
-                                    SourceId = sourceId,
-                                    CreateTime = DateTime.Now
-                                });
+                                if (node["item_type"].TryToInt() == 2)
+                                    hotNews.Add(new HotNews
+                                    {
+                                        Title = node["item_info"]["article_info"]["title"].ToString(),
+                                        Url = $"https://juejin.im/post/{node["item_info"]["article_id"]}",
+                                        SourceId = sourceId,
+                                        CreateTime = DateTime.Now
+                                    });
                             }
                         }
 
@@ -222,7 +224,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
                         // IT之家
                         if (item.Source == HotNewsEnum.ithome)
                         {
-                            var nodes = ((HtmlDocument)item.Result).DocumentNode.SelectNodes("//div[@class='lst lst-2 hot-list']/div[1]/ul/li/a").ToList();
+                            var nodes = ((HtmlDocument)item.Result).DocumentNode.SelectNodes("//div[@class='t-b sel clearfix']/ul/li/a").ToList();
                             nodes.ForEach(x =>
                             {
                                 hotNews.Add(new HotNews
@@ -422,7 +424,7 @@ namespace DG.Blog.BackgroundJobs.Jobs
 
         public async Task SendingAsync(int count, string url = null, string path = null)
         {
-            url ??= "http://dldg.ink/hot";
+            url ??= "http://seey.today/hot";
             path ??= Path.Combine(Path.GetTempPath(), "DG.png");
             var isOk = await ScreensAsync(url, path);
 
