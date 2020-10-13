@@ -19,6 +19,8 @@ namespace DG.Blog.BackgroundJobs
         )]
     public class DGBlogBackgroundJobsModule : AbpModule
     {
+        private static readonly string PreFix = $"{DGBlogConsts.DbTablePrefix}Z_Hangfire";
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddHangfire(config =>
@@ -31,7 +33,7 @@ namespace DG.Blog.BackgroundJobs
                         new MySqlStorage(AppSettings.ConnectionStrings,
                         new MySqlStorageOptions
                         {
-                            TablePrefix = DGBlogConsts.DbTablePrefix + "Hangfire"
+                            TablePrefix = PreFix
                         }));
                         break;
 
@@ -40,7 +42,7 @@ namespace DG.Blog.BackgroundJobs
                         new SqlServerStorage(AppSettings.ConnectionStrings,
                         new SqlServerStorageOptions
                         {
-                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                            SchemaName = PreFix
                         }));
                         break;
 
@@ -49,7 +51,7 @@ namespace DG.Blog.BackgroundJobs
                         new PostgreSqlStorage(AppSettings.ConnectionStrings,
                         new PostgreSqlStorageOptions
                         {
-                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                            SchemaName = PreFix
                         }));
                         break;
 
@@ -58,7 +60,7 @@ namespace DG.Blog.BackgroundJobs
                         new SQLiteStorage(AppSettings.ConnectionStrings,
                         new SQLiteStorageOptions
                         {
-                            SchemaName = DGBlogConsts.DbTablePrefix + "Hangfire"
+                            SchemaName = PreFix
                         }));
                         break;
                 }
