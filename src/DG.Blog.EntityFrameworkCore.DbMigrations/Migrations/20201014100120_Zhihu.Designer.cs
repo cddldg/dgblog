@@ -3,15 +3,17 @@ using System;
 using DG.Blog.EntityFrameworkCore.DbMigrations.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
 {
     [DbContext(typeof(DGBlogMigrationsDbContext))]
-    partial class DGBlogMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201014100120_Zhihu")]
+    partial class Zhihu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

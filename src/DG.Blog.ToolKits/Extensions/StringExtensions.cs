@@ -10,23 +10,23 @@ namespace DG.Blog.ToolKits.Extensions
     {
         #region 空判断
 
-        /// <summary>
-        /// </summary>
-        /// <param name="inputStr"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty(this string inputStr)
-        {
-            return string.IsNullOrEmpty(inputStr);
-        }
+        ///// <summary>
+        ///// </summary>
+        ///// <param name="inputStr"></param>
+        ///// <returns></returns>
+        //public static bool IsNullOrEmpty(this string inputStr)
+        //{
+        //    return string.IsNullOrEmpty(inputStr);
+        //}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="inputStr"></param>
-        /// <returns></returns>
-        public static bool IsNullOrWhiteSpace(this string inputStr)
-        {
-            return string.IsNullOrWhiteSpace(inputStr);
-        }
+        ///// <summary>
+        ///// </summary>
+        ///// <param name="inputStr"></param>
+        ///// <returns></returns>
+        //public static bool IsNullOrWhiteSpace(this string inputStr)
+        //{
+        //    return string.IsNullOrWhiteSpace(inputStr);
+        //}
 
         /// <summary>
         /// </summary>
@@ -208,6 +208,12 @@ namespace DG.Blog.ToolKits.Extensions
         public static string RegexReplace(this string inputStr, string pattern, string replacement)
         {
             return inputStr.IsNullOrEmpty() ? inputStr : Regex.Replace(inputStr, pattern, replacement);
+        }
+
+        public static string RegexNumStr(this string inputStr)
+        {
+            //return NumericRegex.Replace(inputStr, "");
+            return Regex.Replace(inputStr, @"[^0-9]+", "");
         }
 
         #endregion 字符串截取

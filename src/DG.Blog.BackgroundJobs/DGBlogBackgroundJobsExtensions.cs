@@ -48,5 +48,12 @@ namespace DG.Blog.BackgroundJobs
 
             RecurringJob.AddOrUpdate("剧毒鸡汤数据", () => job.RunAsync(), CronType.Hour(40, 3));
         }
+
+        public static void UseZhihuJob(this ApplicationInitializationContext context)
+        {
+            var job = context.ServiceProvider.GetService<ZhihuJob>();
+
+            RecurringJob.AddOrUpdate("知乎问题数据", () => job.RunAsync(), CronType.Minute(20));
+        }
     }
 }

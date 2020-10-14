@@ -5,6 +5,7 @@ using DG.Blog.Domain.Shared;
 using DG.Blog.Domain.Signature;
 using DG.Blog.Domain.Soul;
 using DG.Blog.Domain.Wallpaper;
+using DG.Blog.Domain.Zhihu;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using static DG.Blog.Domain.Shared.DGBlogDbConsts;
@@ -124,6 +125,13 @@ namespace DG.Blog.EntityFrameworkCore
                 //b.Property(x => x.Width).HasColumnType("int").IsRequired();
                 //b.Property(x => x.Height).HasColumnType("int").IsRequired();
                 //b.Property(x => x.CreateTime).HasColumnType("datetime").IsRequired();
+            });
+
+            builder.Entity<ZhQuestion>(b =>
+            {
+                b.ToTable(DGBlogConsts.DbTablePrefix + DbTableName.ZhQuestion);
+                b.HasKey(x => x.Id);
+                b.Property(x => x.QuestionId).IsRequired();
             });
         }
     }

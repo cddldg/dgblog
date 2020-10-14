@@ -25,6 +25,8 @@
             public const string Albums = "Albums";
 
             public const string Images = "Images";
+
+            public const string ZhQuestion = "ZhQuestion";
         }
     }
 }

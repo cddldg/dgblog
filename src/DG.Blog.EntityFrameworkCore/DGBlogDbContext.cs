@@ -4,6 +4,7 @@ using DG.Blog.Domain.HotNews;
 using DG.Blog.Domain.Signature;
 using DG.Blog.Domain.Soul;
 using DG.Blog.Domain.Wallpaper;
+using DG.Blog.Domain.Zhihu;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -34,6 +35,8 @@ namespace DG.Blog.EntityFrameworkCore
         public DbSet<Album> Albums { get; set; }
 
         public DbSet<Image> Images { get; set; }
+
+        public DbSet<ZhQuestion> ZhQuestions { get; set; }
 
         public DGBlogDbContext(DbContextOptions<DGBlogDbContext> options)
             : base(options)

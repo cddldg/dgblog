@@ -111,6 +111,9 @@ namespace DG.Blog.BackgroundJobs
 
             // 剧毒鸡汤数据
             context.UseChickenSoupJob();
+
+            // 知乎问题数据
+            context.UseZhihuJob();
         }
     }
 }

@@ -185,3 +185,5 @@ healthchecksdb
 *.xml
 Logs/
 /src/DG.Blog.HttpApi.Hosting/appsettings.json
+/src/DG.Blog.HttpApi.Hosting/appsettings.json
+/src/DG.Blog.EntityFrameworkCore.DbMigrations/appsettings.json
