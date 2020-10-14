@@ -17,9 +17,7 @@ namespace DG.Blog.EntityFrameworkCore.Repositories.Zhihu
         {
         }
 
-        public void GetMonitorQuestions()
-        {
-        }
+       
 
         /// <summary>
         /// 批量插入数据

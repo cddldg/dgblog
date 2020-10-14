@@ -66,12 +66,11 @@ namespace DG.Blog.Domain.Zhihu
         /// <summary>
         /// 创建监听时间
         /// </summary>
-        public DateTime CreateMonitorTime
-        { get; set; }
+        public DateTime? CreateMonitorTime{ get; set; }
 
         /// <summary>
         /// 监听更新时间
         /// </summary>
-        public DateTime MonitorUpdateTime { get; set; }
+        public DateTime? MonitorUpdateTime { get; set; }
     }
 }
