@@ -3,15 +3,17 @@ using System;
 using DG.Blog.EntityFrameworkCore.DbMigrations.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
 {
     [DbContext(typeof(DGBlogMigrationsDbContext))]
-    partial class DGBlogMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201015033131_Zhihu")]
+    partial class Zhihu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,51 +306,6 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer1CardCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer1CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer1VoteupCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer2CardCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer2CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer2VoteupCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer3CardCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer3CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer3VoteupCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer4CardCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer4CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer4VoteupCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer5CardCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer5CommentCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Answer5VoteupCount")
                         .HasColumnType("int");
 
                     b.Property<int>("AnswerDiff")

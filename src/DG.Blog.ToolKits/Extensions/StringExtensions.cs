@@ -68,6 +68,8 @@ namespace DG.Blog.ToolKits.Extensions
 
         private static readonly Regex IdRegex = new Regex(@"^[1-9]\d{16}[\dXx]$");
 
+        public static readonly Regex ZhCardRegex = new Regex("data-draft-type=\"mcn-link-card\"");
+
         /// <summary>
         /// 是否中文
         /// </summary>

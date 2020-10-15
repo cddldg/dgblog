@@ -20,13 +20,17 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     ViewCount = table.Column<int>(nullable: false),
                     GoodQuestionCount = table.Column<int>(nullable: false),
                     AnswerTotal = table.Column<int>(nullable: false),
+                    FollowerDiff = table.Column<int>(nullable: false),
+                    ViewDiff = table.Column<int>(nullable: false),
+                    GoodQuestionDiff = table.Column<int>(nullable: false),
+                    AnswerDiff = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: true),
                     UpdatedTime = table.Column<DateTime>(nullable: true),
                     FistTime = table.Column<bool>(nullable: false),
                     Subscribes = table.Column<int>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    CreateMonitorTime = table.Column<DateTime>(nullable: false),
-                    MonitorUpdateTime = table.Column<DateTime>(nullable: false)
+                    CreateMonitorTime = table.Column<DateTime>(nullable: true),
+                    MonitorUpdateTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

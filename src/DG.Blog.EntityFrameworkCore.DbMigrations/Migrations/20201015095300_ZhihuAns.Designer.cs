@@ -10,8 +10,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
 {
     [DbContext(typeof(DGBlogMigrationsDbContext))]
-    [Migration("20201014100120_Zhihu")]
-    partial class Zhihu
+    [Migration("20201015095300_ZhihuAns")]
+    partial class ZhihuAns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -308,10 +308,58 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("Answer1CardCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer1CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer1VoteupCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer2CardCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer2CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer2VoteupCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer3CardCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer3CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer3VoteupCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer4CardCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer4CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer4VoteupCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer5CardCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer5CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Answer5VoteupCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnswerDiff")
+                        .HasColumnType("int");
+
                     b.Property<int>("AnswerTotal")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateMonitorTime")
+                    b.Property<DateTime?>("CreateMonitorTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTime?>("Created")
@@ -323,10 +371,16 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                     b.Property<int>("FollowerCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("FollowerDiff")
+                        .HasColumnType("int");
+
                     b.Property<int>("GoodQuestionCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("MonitorUpdateTime")
+                    b.Property<int>("GoodQuestionDiff")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("MonitorUpdateTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<long>("QuestionId")
@@ -345,6 +399,9 @@ namespace DG.Blog.EntityFrameworkCore.DbMigrations.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ViewDiff")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

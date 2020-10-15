@@ -53,7 +53,7 @@ namespace DG.Blog.BackgroundJobs
         {
             var job = context.ServiceProvider.GetService<ZhihuJob>();
 
-            RecurringJob.AddOrUpdate("知乎问题数据", () => job.RunAsync(), CronType.Minute(20));
+            RecurringJob.AddOrUpdate("知乎问题数据", () => job.RunAsync(), CronType.Hour());
         }
     }
 }
