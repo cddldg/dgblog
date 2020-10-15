@@ -184,5 +184,4 @@ healthchecksdb
 .local-chromium
 *.xml
 Logs/
-*appsettings.json
 
